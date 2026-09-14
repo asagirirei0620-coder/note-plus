@@ -2,78 +2,59 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#6c63ff">
-<title>NOTE＋</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101522">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>NOTE＋ Ver.4.0</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
-
 :root{
-  --bg:#f4f5fb;
-  --card:#ffffff;
-  --text:#202124;
-  --sub:#747474;
-  --line:#e8e8ee;
-  --primary:#6c63ff;
-  --primary2:#8d86ff;
-  --soft:#f0efff;
+  --bg:#0b1020;
+  --card:rgba(20,27,45,.82);
+  --card2:rgba(255,255,255,.08);
+  --text:#f7f9ff;
+  --muted:#aab4c8;
+  --accent:#7c5cff;
+  --accent2:#38d996;
   --danger:#ff5f6d;
-  --shadow:0 8px 30px rgba(0,0,0,.06);
+  --warning:#ffc857;
+  --radius:24px;
+  --shadow:0 20px 60px rgba(0,0,0,.28);
 }
 
-body.dark{
-  --bg:#101116;
-  --card:#191a21;
-  --text:#f4f4f5;
-  --sub:#a5a5ad;
-  --line:#2b2c35;
-  --soft:#24232f;
-  --shadow:0 8px 30px rgba(0,0,0,.25);
-}
+*{box-sizing:border-box}
 
-*{
-  scrollbar-width:thin;
+html,body{
+  margin:0;
+  min-height:100%;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Helvetica Neue",Arial,sans-serif;
+  color:var(--text);
+  background:#0b1020;
 }
 
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Noto Sans JP",
-    "Hiragino Kaku Gothic ProN",
-    sans-serif;
-  transition:.2s;
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
 }
 
-button,
-input,
-textarea,
-select{
-  font:inherit;
-}
+button,input,textarea,select{font:inherit}
 
 button{
-  border:0;
   cursor:pointer;
+  color:var(--text);
 }
 
-header{
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:var(--card);
-  border-bottom:1px solid var(--line);
-  padding:18px 18px 14px;
+.app{
+  min-height:100vh;
+  padding:16px;
+  padding-bottom:100px;
+  background:linear-gradient(180deg,rgba(5,8,18,.18),rgba(5,8,18,.72));
 }
 
-.header-inner{
-  max-width:900px;
+.top{
+  max-width:1180px;
   margin:auto;
   display:flex;
   justify-content:space-between;
@@ -81,240 +62,201 @@ header{
 }
 
 .logo{
-  font-size:27px;
+  font-size:22px;
   font-weight:900;
-  letter-spacing:-1px;
+  letter-spacing:.5px;
 }
 
-.logo span{
-  color:var(--primary);
-}
+.logo span{color:var(--accent)}
 
-.clock{
-  color:var(--sub);
-  font-size:13px;
-  text-align:right;
+.version{
+  font-size:11px;
+  color:var(--muted);
+  margin-left:5px;
 }
 
 main{
-  max-width:900px;
-  margin:auto;
-  padding:20px 16px 110px;
+  max-width:1180px;
+  margin:18px auto;
 }
 
-.page{
-  display:none;
-  animation:fade .2s ease;
+.page{display:none}
+.page.active{display:block}
+
+.hero{
+  text-align:center;
+  padding:28px 20px;
+  border-radius:32px;
+  background:var(--card);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:var(--shadow);
 }
 
-.page.active{
-  display:block;
+.clock{
+  font-size:clamp(50px,12vw,100px);
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-3px;
 }
 
-@keyframes fade{
-  from{
-    opacity:0;
-    transform:translateY(4px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
+.date{
+  color:var(--muted);
+  margin-top:9px;
+}
+
+.greeting{
+  margin-top:18px;
+  font-size:20px;
+  font-weight:800;
 }
 
 .card{
   background:var(--card);
-  border:1px solid var(--line);
-  border-radius:22px;
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius);
   padding:20px;
-  margin-bottom:16px;
   box-shadow:var(--shadow);
 }
 
-.hero{
-  background:
-    linear-gradient(
-      135deg,
-      var(--primary),
-      var(--primary2)
-    );
-  color:white;
-  border:0;
-}
-
-.hero .sub{
-  color:rgba(255,255,255,.8);
-}
-
-h1,h2,h3,p{
-  margin-top:0;
-}
-
-h2{
-  font-size:20px;
-  margin-bottom:12px;
-}
-
-h3{
-  font-size:16px;
-  margin-bottom:8px;
-}
-
-.sub{
-  color:var(--sub);
-  font-size:13px;
+.card h2,.card h3{
+  margin:0 0 12px;
 }
 
 .grid{
   display:grid;
-  gap:12px;
-}
-
-.stats{
   grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-top:14px;
 }
 
-.stat{
-  background:var(--soft);
-  border-radius:17px;
-  padding:15px;
+.grid2{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin-top:14px;
 }
 
-.stat-label{
-  font-size:11px;
-  color:var(--sub);
-  font-weight:700;
-}
+.muted{color:var(--muted)}
 
-.stat-value{
-  font-size:24px;
+.big{
+  font-size:30px;
   font-weight:900;
-  margin-top:5px;
+  margin:3px 0 8px;
 }
 
 .progress{
-  height:12px;
-  background:var(--line);
-  border-radius:20px;
+  height:11px;
   overflow:hidden;
+  background:rgba(255,255,255,.1);
+  border-radius:99px;
 }
 
-.progress-bar{
+.bar{
   height:100%;
-  width:0;
-  background:var(--primary);
-  transition:.4s;
+  width:0%;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--accent),#35c9ff);
+  transition:.35s;
 }
 
-button.primary{
-  background:var(--primary);
-  color:white;
+.btn,.iconbtn,.navbtn{
+  border:1px solid rgba(255,255,255,.1);
+  background:var(--card2);
+  border-radius:15px;
+  padding:10px 14px;
 }
 
-button.secondary{
-  background:var(--soft);
-  color:var(--text);
+.btn.primary{
+  background:var(--accent);
+  border-color:transparent;
 }
 
-button.danger{
+.btn.green{
+  background:var(--accent2);
+  color:#06120c;
+  border-color:transparent;
+}
+
+.btn.red{
   background:var(--danger);
-  color:white;
+  border-color:transparent;
 }
 
-.btn{
-  padding:12px 16px;
-  border-radius:13px;
-  font-weight:800;
+.btn.warning{
+  background:var(--warning);
+  color:#241800;
+  border-color:transparent;
 }
 
-.btn:active{
-  transform:scale(.98);
+.btn:hover,.navbtn:hover,.iconbtn:hover{
+  filter:brightness(1.12);
 }
 
-.row{
+.section{margin-top:14px}
+
+.next{
   display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.ai-input{
-  width:100%;
-  min-height:100px;
-  resize:vertical;
-  background:var(--bg);
-  color:var(--text);
-  border:2px solid var(--line);
-  border-radius:16px;
-  padding:14px;
-  outline:none;
-}
-
-.ai-input:focus{
-  border-color:var(--primary);
-}
-
-.plan-result{
-  margin-top:15px;
-  display:none;
-}
-
-.plan-result.show{
-  display:block;
-}
-
-.plan-item{
-  display:flex;
-  gap:12px;
-  padding:13px 0;
-  border-bottom:1px solid var(--line);
-}
-
-.plan-item:last-child{
-  border-bottom:0;
-}
-
-.plan-number{
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  background:var(--soft);
-  color:var(--primary);
-  display:flex;
+  justify-content:space-between;
   align-items:center;
-  justify-content:center;
-  font-weight:900;
-  flex-shrink:0;
+  gap:16px;
+  text-align:left;
 }
 
-.plan-name{
-  font-weight:800;
+.next strong{
+  display:block;
+  font-size:21px;
+  margin:4px 0;
+}
+
+.boss{
+  background:linear-gradient(135deg,rgba(255,200,87,.13),rgba(124,92,255,.13));
+  border-color:rgba(255,200,87,.25);
+}
+
+.tag{
+  display:inline-block;
+  padding:5px 9px;
+  margin:3px;
+  border-radius:999px;
+  background:rgba(124,92,255,.18);
+  color:#d5ccff;
+  font-size:12px;
 }
 
 .task{
   display:flex;
   align-items:center;
-  gap:11px;
+  gap:12px;
   padding:14px 0;
-  border-bottom:1px solid var(--line);
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
 
-.task:last-child{
-  border-bottom:0;
+.task:last-child{border-bottom:0}
+
+.check{
+  width:26px;
+  height:26px;
+  flex:none;
+  border-radius:8px;
+  border:2px solid var(--accent);
+  background:transparent;
 }
 
-.task-check{
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  background:var(--soft);
-  color:var(--text);
-  flex-shrink:0;
-  font-weight:900;
+.done .check{
+  background:var(--accent);
+  position:relative;
 }
 
-.task.done .task-check{
-  background:var(--primary);
+.done .check::after{
+  content:"✓";
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
   color:white;
+  font-weight:900;
 }
 
 .task-info{
@@ -322,147 +264,220 @@ button.danger{
   min-width:0;
 }
 
-.task-name{
+.taskname{
   font-weight:800;
   word-break:break-word;
 }
 
-.task.done .task-name{
+.done .taskname{
+  color:var(--muted);
   text-decoration:line-through;
-  color:var(--sub);
 }
 
-.task-meta{
-  color:var(--sub);
+.taskmeta{
+  color:var(--muted);
   font-size:12px;
   margin-top:4px;
 }
 
-.delete{
-  background:transparent;
-  color:var(--sub);
-  font-size:20px;
+.task-actions{
+  display:flex;
+  gap:5px;
 }
 
-.priority-high{
-  color:#ff5b65;
-  font-weight:800;
+.smallbtn{
+  padding:7px 9px;
+  border-radius:10px;
+  background:rgba(255,255,255,.07);
+  color:var(--text);
+  border:1px solid rgba(255,255,255,.08);
 }
 
-.priority-normal{
-  color:#d59b00;
-  font-weight:800;
+.form{
+  display:grid;
+  gap:10px;
 }
 
-.priority-low{
-  color:#4b9b70;
-  font-weight:800;
+.row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
-input,
-select,
-textarea{
+.row>*{
+  flex:1;
+  min-width:120px;
+}
+
+input,textarea,select{
   width:100%;
-  padding:13px;
-  border:1px solid var(--line);
-  border-radius:13px;
-  background:var(--bg);
+  padding:13px 14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.2);
   color:var(--text);
   outline:none;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:var(--primary);
+input:focus,textarea:focus,select:focus{
+  border-color:var(--accent);
 }
 
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 130px 130px;
-  gap:10px;
+textarea{
+  min-height:145px;
+  resize:vertical;
 }
 
-.timer{
-  text-align:center;
-  font-size:70px;
-  font-weight:900;
-  letter-spacing:-3px;
-  margin:30px 0;
-}
-
-.timer-state{
-  text-align:center;
-  color:var(--sub);
-  margin-bottom:15px;
-}
-
-.energy{
-  display:flex;
-  gap:8px;
-}
-
-.energy button{
-  flex:1;
-  background:var(--soft);
-  color:var(--text);
-  padding:12px;
-  border-radius:14px;
-}
-
-.energy button.active{
-  background:var(--primary);
+select option{
+  background:#111827;
   color:white;
 }
 
-.nav{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  z-index:100;
-  background:var(--card);
-  border-top:1px solid var(--line);
+.timer{text-align:center}
+
+.timerDisplay{
+  font-size:clamp(60px,13vw,100px);
+  font-weight:900;
+  letter-spacing:-3px;
+  margin:20px 0;
+}
+
+.timerRing{
+  max-width:500px;
+  margin:auto;
+}
+
+.choice{
   display:flex;
   justify-content:center;
-  padding:7px 5px;
-  gap:2px;
+  gap:8px;
+  flex-wrap:wrap;
 }
 
-.nav button{
-  background:transparent;
-  color:var(--sub);
-  padding:8px 12px;
-  border-radius:12px;
-  font-size:11px;
-  min-width:58px;
+.statgrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
 }
 
-.nav button.active{
-  color:var(--primary);
-  background:var(--soft);
-  font-weight:900;
+.stat{
+  text-align:center;
+  padding:12px;
+  border-radius:18px;
+  background:rgba(255,255,255,.05);
+}
+
+.stat b{
+  display:block;
+  font-size:28px;
+}
+
+.achievement{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+.achievement:last-child{border-bottom:0}
+
+.achievement-icon{
+  font-size:28px;
+}
+
+.locked{
+  opacity:.38;
+}
+
+.notice{
+  margin-top:12px;
+  padding:13px;
+  border-radius:15px;
+  background:rgba(56,217,150,.12);
+  color:#baf8dc;
+}
+
+.warningbox{
+  margin-top:12px;
+  padding:13px;
+  border-radius:15px;
+  background:rgba(255,200,87,.12);
+  color:#ffe5a3;
 }
 
 .empty{
   text-align:center;
-  padding:25px 10px;
-  color:var(--sub);
+  color:var(--muted);
+  padding:28px 10px;
 }
+
+.preview{
+  height:180px;
+  border-radius:20px;
+  background-size:cover;
+  background-position:center;
+  border:1px solid rgba(255,255,255,.1);
+}
+
+.personality{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.personality button.active{
+  outline:3px solid var(--accent);
+}
+
+.nav{
+  position:fixed;
+  z-index:50;
+  bottom:12px;
+  left:50%;
+  transform:translateX(-50%);
+  max-width:96%;
+  overflow:auto;
+  display:flex;
+  gap:6px;
+  padding:7px;
+  border-radius:23px;
+  background:rgba(8,12,25,.88);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 15px 50px rgba(0,0,0,.35);
+}
+
+.navbtn{
+  white-space:nowrap;
+  padding:10px 12px;
+}
+
+.navbtn.active{
+  background:var(--accent);
+}
+
+.small{
+  font-size:12px;
+}
+
+.center{text-align:center}
 
 .toast{
   position:fixed;
+  z-index:100;
   left:50%;
   bottom:85px;
   transform:translateX(-50%) translateY(20px);
-  background:#202124;
+  background:#171d2d;
   color:white;
-  padding:12px 17px;
-  border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);
+  padding:13px 18px;
+  border-radius:15px;
   opacity:0;
   pointer-events:none;
   transition:.25s;
-  z-index:200;
+  box-shadow:var(--shadow);
   max-width:90%;
   text-align:center;
 }
@@ -472,287 +487,190 @@ textarea:focus{
   transform:translateX(-50%) translateY(0);
 }
 
-.badge{
-  display:inline-block;
-  background:var(--soft);
-  color:var(--primary);
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:11px;
-  font-weight:800;
+.plan-item{
+  padding:13px;
+  border-radius:15px;
+  background:rgba(255,255,255,.05);
+  margin-bottom:8px;
 }
 
-.big-next{
-  font-size:23px;
-  font-weight:900;
-  margin:7px 0 15px;
+.plan-item strong{
+  display:block;
+  margin-bottom:4px;
 }
 
-.memo{
-  min-height:300px;
-}
-
-.setting-row{
+.timeline-item{
   display:flex;
-  justify-content:space-between;
+  gap:12px;
+  padding:13px 0;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.timeline-time{
+  min-width:60px;
+  font-weight:900;
+  color:#cfc7ff;
+}
+
+.subjectbar{
+  display:flex;
   align-items:center;
-  gap:15px;
-  padding:15px 0;
-  border-bottom:1px solid var(--line);
+  gap:10px;
+  margin:10px 0;
 }
 
-.setting-row:last-child{
-  border-bottom:0;
+.subjectbar span:first-child{
+  width:70px;
+  font-size:13px;
 }
 
-@media(max-width:700px){
-
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .form-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .form-grid input:first-child{
-    grid-column:1/-1;
-  }
-
-  .timer{
-    font-size:55px;
-  }
-
-  .nav button{
-    min-width:45px;
-    padding:8px 5px;
-  }
+.subjectbar .progress{
+  flex:1;
 }
 
-@media(max-width:420px){
+@media(max-width:850px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .grid2{grid-template-columns:1fr}
+}
 
-  .logo{
-    font-size:24px;
-  }
-
-  .clock{
-    font-size:11px;
-  }
-
-  main{
-    padding-left:11px;
-    padding-right:11px;
-  }
-
-  .card{
-    padding:16px;
-  }
+@media(max-width:520px){
+  .app{padding:11px;padding-bottom:100px}
+  .card{padding:15px;border-radius:20px}
+  .hero{padding:24px 12px}
+  .clock{font-size:56px}
+  .grid{gap:9px}
+  .big{font-size:25px}
+  .next{align-items:flex-start;flex-direction:column}
+  .next .btn{width:100%}
+  .statgrid{gap:7px}
+  .stat b{font-size:23px}
+  .navbtn{font-size:12px;padding:9px 10px}
+  .personality{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="header-inner">
-    <div class="logo">NOTE<span>＋</span></div>
-    <div class="clock" id="clock"></div>
-  </div>
+<div class="app">
+
+<header class="top">
+  <div class="logo">NOTE<span>＋</span><span class="version">Ver.4.0</span></div>
+  <button class="iconbtn" onclick="showPage('settings')">⚙️</button>
 </header>
 
 <main>
 
 <!-- HOME -->
-<section class="page active" id="page-home">
+<section id="home" class="page active">
 
-  <div class="card hero">
-    <div class="sub" id="dateText"></div>
-    <h1 id="greeting">こんにちは！</h1>
-    <p class="sub">今日も一歩ずつ進めよう。</p>
+  <div class="hero">
+    <div id="clock" class="clock">00:00</div>
+    <div id="date" class="date"></div>
+    <div id="greeting" class="greeting"></div>
   </div>
 
-  <div class="grid stats">
+  <div class="grid">
 
-    <div class="stat">
-      <div class="stat-label">LEVEL</div>
-      <div class="stat-value" id="level">1</div>
+    <div class="card">
+      <div class="muted">LEVEL</div>
+      <div class="big" id="level">1</div>
+      <div class="progress">
+        <div class="bar" id="xpbar"></div>
+      </div>
+      <div class="small" id="xptext">0 / 100 XP</div>
     </div>
 
-    <div class="stat">
-      <div class="stat-label">XP</div>
-      <div class="stat-value" id="xp">0</div>
+    <div class="card">
+      <div class="muted">STREAK</div>
+      <div class="big">🔥 <span id="streak">0</span></div>
+      <div class="small">BEST <span id="bestStreak">0</span></div>
     </div>
 
-    <div class="stat">
-      <div class="stat-label">STREAK</div>
-      <div class="stat-value" id="streak">0</div>
+    <div class="card">
+      <div class="muted">今日の達成率</div>
+      <div class="big" id="rate">0%</div>
+      <div class="progress">
+        <div class="bar" id="ratebar"></div>
+      </div>
     </div>
 
-    <div class="stat">
-      <div class="stat-label">FOCUS</div>
-      <div class="stat-value" id="focusTotal">0</div>
+    <div class="card">
+      <div class="muted">集中時間</div>
+      <div class="big" id="focusToday">0分</div>
+      <div class="small">累計 <span id="focusTotal">0</span>分</div>
     </div>
 
   </div>
+
+  <div class="card section next">
+
+    <div>
+      <div class="muted">🤖 NEXT ACTION</div>
+      <strong id="nextTitle">まずはタスクを追加しよう</strong>
+      <div id="nextMeta" class="muted">
+        NOTE＋が今の状況から次の行動を決めます。
+      </div>
+    </div>
+
+    <button class="btn primary" onclick="startNext()">▶ 開始</button>
+
+  </div>
+
+  <div class="grid2">
+
+    <div class="card boss">
+      <h3>👑 今日のラスボス</h3>
+      <div id="boss">まだタスクがありません。</div>
+    </div>
+
+    <div class="card">
+      <h3>🧭 今日の司令</h3>
+      <div id="command">今日やることを入力しよう。</div>
+      <div class="section">
+        <button class="btn primary" onclick="showPage('planner')">
+          自然文から予定を作る
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card section">
+    <h3>📋 今日のタスク</h3>
+    <div id="homeTasks"></div>
+  </div>
+
+  <div class="card section">
+    <h3>🕒 今日のタイムライン</h3>
+    <div id="timeline"></div>
+  </div>
+
+</section>
+
+
+<!-- PLANNER -->
+<section id="planner" class="page">
 
   <div class="card">
 
-    <div class="row" style="justify-content:space-between">
-      <strong>次のレベルまで</strong>
-      <span class="sub" id="xpText">0 / 500 XP</span>
-    </div>
+    <h2>🧠 自然文プランナー</h2>
 
-    <div class="progress">
-      <div class="progress-bar" id="xpBar"></div>
-    </div>
-
-  </div>
-
-
-  <!-- NATURAL LANGUAGE -->
-  <div class="card">
-
-    <h2>🧠 NOTE＋に話しかける</h2>
-
-    <p class="sub">
-      やりたいことを普通の文章で書いてみて。
+    <p class="muted">
+      普通の文章で予定を書くだけで、NOTE＋がタスクに分解します。
     </p>
 
     <textarea
-      id="naturalInput"
-      class="ai-input"
-      placeholder="例：明日数学のテストだから、今日は数学を2時間やりたい"
+      id="plannerInput"
+      placeholder="例：明日数学のテストだから、今日は数学を2時間と英語を1時間やりたい。22時には寝たい。"
     ></textarea>
 
-    <br><br>
-
-    <button
-      class="btn primary"
-      onclick="analyzeNaturalLanguage()"
-    >
-      🧠 予定を作る
-    </button>
-
-    <div id="planResult" class="plan-result">
-
-      <div class="card" style="margin-top:15px">
-
-        <span class="badge">NOTE＋ PLAN</span>
-
-        <h3 id="planTitle" style="margin-top:10px"></h3>
-
-        <div id="planItems"></div>
-
-        <div
-          style="margin-top:15px"
-          class="row"
-        >
-          <button
-            class="btn primary"
-            onclick="applyPlan()"
-          >
-            この予定を追加
-          </button>
-
-          <button
-            class="btn secondary"
-            onclick="cancelPlan()"
-          >
-            やめる
-          </button>
-        </div>
-
-      </div>
-
+    <div class="row section">
+      <button class="btn primary" onclick="makePlan()">✨ 予定を作る</button>
+      <button class="btn" onclick="document.getElementById('plannerInput').value=''">クリア</button>
     </div>
 
-  </div>
-
-
-  <!-- NEXT ACTION -->
-  <div class="card">
-
-    <span class="badge">NEXT ACTION</span>
-
-    <div
-      class="big-next"
-      id="nextTask"
-    >
-      まずはタスクを追加しよう。
-    </div>
-
-    <button
-      class="btn primary"
-      onclick="startNextTask()"
-    >
-      ▶ 次にやる
-    </button>
-
-  </div>
-
-
-  <!-- TODAY -->
-  <div class="card">
-
-    <h2>📈 今日の進捗</h2>
-
-    <div
-      style="display:flex;justify-content:space-between"
-    >
-      <span id="todayPercent">0%</span>
-      <span class="sub" id="todayTaskText">0 / 0</span>
-    </div>
-
-    <br>
-
-    <div class="progress">
-      <div
-        class="progress-bar"
-        id="todayBar"
-      ></div>
-    </div>
-
-  </div>
-
-
-  <!-- ENERGY -->
-  <div class="card">
-
-    <h2>⚡ 今のコンディション</h2>
-
-    <div class="energy">
-
-      <button
-        id="energy-high"
-        onclick="setEnergy('high')"
-      >
-        ⚡元気
-      </button>
-
-      <button
-        id="energy-normal"
-        onclick="setEnergy('normal')"
-      >
-        🙂普通
-      </button>
-
-      <button
-        id="energy-low"
-        onclick="setEnergy('low')"
-      >
-        😴眠い
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>📋 今日のタスク</h2>
-
-    <div id="homeTasks"></div>
+    <div id="planResult" class="section"></div>
 
   </div>
 
@@ -760,148 +678,92 @@ textarea:focus{
 
 
 <!-- TASKS -->
-<section class="page" id="page-tasks">
+<section id="tasks" class="page">
 
   <div class="card">
 
     <h2>📋 タスク追加</h2>
 
-    <div class="form-grid">
+    <div class="form">
 
-      <input
-        id="taskName"
-        placeholder="タスク名"
-      >
+      <input id="taskName" placeholder="例：数学 二次方程式">
 
-      <input
-        id="taskMinutes"
-        type="number"
-        min="1"
-        placeholder="分"
-      >
+      <div class="row">
+        <input id="taskMin" type="number" min="1" value="25" placeholder="時間（分）">
 
-      <select id="taskPriority">
+        <select id="taskPriority">
+          <option value="1">普通</option>
+          <option value="2">重要</option>
+          <option value="3">最優先</option>
+        </select>
+      </div>
 
-        <option value="1">
-          低
-        </option>
+      <div class="row">
 
-        <option value="2" selected>
-          普通
-        </option>
+        <select id="taskDate">
+          <option value="today">今日</option>
+          <option value="tomorrow">明日</option>
+        </select>
 
-        <option value="3">
-          高
-        </option>
+        <button class="btn primary" onclick="addManualTask()">
+          ＋追加
+        </button>
 
-      </select>
+      </div>
 
     </div>
 
-    <br>
-
-    <button
-      class="btn primary"
-      onclick="addManualTask()"
-    >
-      ＋ タスク追加
-    </button>
-
   </div>
 
-
-  <div class="card">
-
-    <h2>すべてのタスク</h2>
-
+  <div class="card section">
+    <h3>未完了</h3>
     <div id="taskList"></div>
+  </div>
 
+  <div class="card section">
+    <h3>完了済み</h3>
+    <div id="completedList"></div>
   </div>
 
 </section>
 
 
 <!-- FOCUS -->
-<section class="page" id="page-focus">
+<section id="focus" class="page">
 
-  <div class="card">
+  <div class="card timer">
 
-    <h2>🎯 集中モード</h2>
+    <h2>⏱️ 集中モード</h2>
 
-    <div
-      class="timer"
-      id="timer"
-    >
-      25:00
+    <div class="muted" id="timerTask">
+      集中するタスクを選択できます。
     </div>
 
-    <div
-      class="timer-state"
-      id="timerState"
-    >
-      準備完了
-    </div>
+    <div class="choice section">
 
-    <div class="row" style="justify-content:center">
-
-      <button
-        class="btn secondary"
-        onclick="setTimer(15)"
-      >
-        15分
-      </button>
-
-      <button
-        class="btn secondary"
-        onclick="setTimer(25)"
-      >
-        25分
-      </button>
-
-      <button
-        class="btn secondary"
-        onclick="setTimer(45)"
-      >
-        45分
-      </button>
-
-      <button
-        class="btn secondary"
-        onclick="setTimer(60)"
-      >
-        60分
-      </button>
+      <button class="btn" onclick="setTimer(25)">25分</button>
+      <button class="btn" onclick="setTimer(50)">50分</button>
+      <button class="btn" onclick="setTimer(5)">5分</button>
+      <button class="btn" onclick="customTimer()">自由</button>
 
     </div>
 
-    <br>
+    <div class="timerDisplay" id="timerDisplay">25:00</div>
 
-    <div
-      class="row"
-      style="justify-content:center"
-    >
-
-      <button
-        class="btn primary"
-        onclick="startTimer()"
-      >
-        ▶ 開始
+    <div class="row">
+      <button class="btn primary" id="timerBtn" onclick="toggleTimer()">
+        ▶ スタート
       </button>
 
-      <button
-        class="btn secondary"
-        onclick="pauseTimer()"
-      >
-        ⏸ 一時停止
+      <button class="btn" onclick="resetTimer()">
+        ↺ リセット
       </button>
+    </div>
 
-      <button
-        class="btn secondary"
-        onclick="resetTimer()"
-      >
-        ↻ リセット
+    <div class="section">
+      <button class="btn" onclick="selectTimerTask()">
+        🎯 タスクを選ぶ
       </button>
-
     </div>
 
   </div>
@@ -910,97 +772,66 @@ textarea:focus{
 
 
 <!-- STATS -->
-<section class="page" id="page-stats">
+<section id="stats" class="page">
 
   <div class="card">
 
-    <h2>📊 NOTE＋記録</h2>
+    <h2>📊 統計</h2>
 
-    <div class="grid stats">
+    <div class="statgrid">
 
       <div class="stat">
-        <div class="stat-label">
-          総XP
-        </div>
-        <div
-          class="stat-value"
-          id="statXP"
-        >
-          0
-        </div>
+        <b id="sDone">0</b>
+        <span class="muted">完了タスク</span>
       </div>
 
       <div class="stat">
-        <div class="stat-label">
-          完了タスク
-        </div>
-        <div
-          class="stat-value"
-          id="statDone"
-        >
-          0
-        </div>
+        <b id="sFocus">0</b>
+        <span class="muted">集中分</span>
       </div>
 
       <div class="stat">
-        <div class="stat-label">
-          集中時間
-        </div>
-        <div
-          class="stat-value"
-          id="statFocus"
-        >
-          0分
-        </div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-label">
-          最長STREAK
-        </div>
-        <div
-          class="stat-value"
-          id="statBest"
-        >
-          0
-        </div>
+        <b id="sXP">0</b>
+        <span class="muted">総XP</span>
       </div>
 
     </div>
 
   </div>
 
+  <div class="card section">
+    <h3>📚 科目・カテゴリ</h3>
+    <div id="subjectStats"></div>
+  </div>
 
-  <div class="card">
-
-    <h2>🏆 実績</h2>
-
+  <div class="card section">
+    <h3>🏆 実績</h3>
     <div id="achievements"></div>
-
   </div>
 
 </section>
 
 
 <!-- MEMO -->
-<section class="page" id="page-memo">
+<section id="memo" class="page">
 
   <div class="card">
 
-    <h2>📝 メモ</h2>
+    <h2>📝 頭の中</h2>
+
+    <p class="muted">
+      思いついたこと、忘れたくないことを自由に書こう。
+    </p>
 
     <textarea
-      id="memo"
-      class="memo"
-      placeholder="思いついたこと、明日やること、勉強のメモなど……"
+      id="memoText"
+      placeholder="例：明日、数学のワークを学校に持っていく"
     ></textarea>
 
-    <p
-      class="sub"
-      id="memoStatus"
-    >
-      自動保存
-    </p>
+    <div class="row section">
+      <button class="btn primary" onclick="saveMemo()">💾 保存</button>
+      <button class="btn" onclick="convertMemoToTasks()">🧠 タスク候補にする</button>
+    </div>
 
   </div>
 
@@ -1008,69 +839,155 @@ textarea:focus{
 
 
 <!-- SETTINGS -->
-<section class="page" id="page-settings">
+<section id="settings" class="page">
 
   <div class="card">
 
     <h2>⚙️ 設定</h2>
 
-    <div class="setting-row">
+    <h3>🎭 NOTE＋の性格</h3>
 
-      <div>
-        <strong>ダークモード</strong>
-        <div class="sub">
-          画面を暗くする
-        </div>
-      </div>
+    <div class="personality">
 
       <button
-        class="btn secondary"
-        onclick="toggleDark()"
+        id="personality-gentle"
+        class="btn"
+        onclick="setPersonality('gentle')"
       >
-        切り替え
+        🌱 やさしい
+      </button>
+
+      <button
+        id="personality-normal"
+        class="btn"
+        onclick="setPersonality('normal')"
+      >
+        🙂 普通
+      </button>
+
+      <button
+        id="personality-spartan"
+        class="btn"
+        onclick="setPersonality('spartan')"
+      >
+        🔥 スパルタ
       </button>
 
     </div>
 
+  </div>
 
-    <div class="setting-row">
 
-      <div>
-        <strong>データ書き出し</strong>
-        <div class="sub">
-          NOTE＋のデータを保存
-        </div>
-      </div>
+  <div class="card section">
 
-      <button
-        class="btn secondary"
-        onclick="exportData()"
-      >
-        Export
+    <h3>🎨 外観</h3>
+
+    <div class="row">
+
+      <button class="btn" onclick="setTheme('dark')">
+        🌙 ダーク
+      </button>
+
+      <button class="btn" onclick="setTheme('light')">
+        ☀️ ライト
+      </button>
+
+      <button class="btn" onclick="setTheme('system')">
+        💻 システム
       </button>
 
     </div>
 
+    <div class="section">
 
-    <div class="setting-row">
+      <label class="small muted">アクセントカラー</label>
 
-      <div>
-        <strong>データ読み込み</strong>
-        <div class="sub">
-          バックアップから復元
-        </div>
-      </div>
-
-      <button
-        class="btn secondary"
-        onclick="document.getElementById('importFile').click()"
+      <input
+        id="accentColor"
+        type="color"
+        value="#7c5cff"
+        onchange="changeAccent(this.value)"
       >
-        Import
+
+    </div>
+
+  </div>
+
+
+  <div class="card section">
+
+    <h3>🖼️ 壁紙</h3>
+
+    <p class="muted">
+      自分の画像をNOTE＋の背景にできます。画像はこのブラウザ内に保存されます。
+    </p>
+
+    <input
+      id="wallpaperInput"
+      type="file"
+      accept="image/*"
+      onchange="changeWallpaper(event)"
+    >
+
+    <div id="wallpaperPreview" class="preview section"></div>
+
+    <div class="row section">
+      <button class="btn" onclick="removeWallpaper()">
+        🗑️ 壁紙を削除
+      </button>
+
+      <button class="btn" onclick="randomWallpaper()">
+        ✨ プリセット
+      </button>
+    </div>
+
+  </div>
+
+
+  <div class="card section">
+
+    <h3>🕐 時計</h3>
+
+    <div class="row">
+
+      <label>
+        <span class="small muted">秒を表示</span>
+        <select id="secondsMode" onchange="saveSettings()">
+          <option value="off">OFF</option>
+          <option value="on">ON</option>
+        </select>
+      </label>
+
+      <label>
+        <span class="small muted">24時間表示</span>
+        <select id="clock24" onchange="saveSettings()">
+          <option value="on">ON</option>
+          <option value="off">OFF</option>
+        </select>
+      </label>
+
+    </div>
+
+  </div>
+
+
+  <div class="card section">
+
+    <h3>📦 データ</h3>
+
+    <div class="row">
+
+      <button class="btn primary" onclick="exportData()">
+        ⬇️ バックアップ
+      </button>
+
+      <button class="btn" onclick="document.getElementById('importFile').click()">
+        ⬆️ 復元
       </button>
 
       <input
-        type="file"
         id="importFile"
+        type="file"
         accept=".json"
         style="display:none"
         onchange="importData(event)"
@@ -1078,23 +995,10 @@ textarea:focus{
 
     </div>
 
-
-    <div class="setting-row">
-
-      <div>
-        <strong>データリセット</strong>
-        <div class="sub">
-          全データを削除
-        </div>
-      </div>
-
-      <button
-        class="btn danger"
-        onclick="resetData()"
-      >
-        リセット
+    <div class="section">
+      <button class="btn red" onclick="resetAll()">
+        ⚠️ すべてリセット
       </button>
-
     </div>
 
   </div>
@@ -1107,391 +1011,617 @@ textarea:focus{
 <!-- NAV -->
 <nav class="nav">
 
-  <button
-    class="active"
-    onclick="showPage('home',this)"
-  >
-    🏠<br>ホーム
+  <button class="navbtn active" data-page="home" onclick="showPage('home')">
+    🏠 ホーム
   </button>
 
-  <button
-    onclick="showPage('tasks',this)"
-  >
-    📋<br>タスク
+  <button class="navbtn" data-page="planner" onclick="showPage('planner')">
+    🧠 予定
   </button>
 
-  <button
-    onclick="showPage('focus',this)"
-  >
-    🎯<br>集中
+  <button class="navbtn" data-page="tasks" onclick="showPage('tasks')">
+    📋 タスク
   </button>
 
-  <button
-    onclick="showPage('stats',this)"
-  >
-    📊<br>記録
+  <button class="navbtn" data-page="focus" onclick="showPage('focus')">
+    ⏱️ 集中
   </button>
 
-  <button
-    onclick="showPage('memo',this)"
-  >
-    📝<br>メモ
+  <button class="navbtn" data-page="stats" onclick="showPage('stats')">
+    📊 統計
   </button>
 
-  <button
-    onclick="showPage('settings',this)"
-  >
-    ⚙️<br>設定
+  <button class="navbtn" data-page="memo" onclick="showPage('memo')">
+    📝 メモ
   </button>
 
 </nav>
 
+<div id="toast" class="toast"></div>
 
-<div
-  class="toast"
-  id="toast"
-></div>
+</div>
 
 
 <script>
 
-/* =========================
-   NOTE＋ v3.0
-========================= */
+/* =========================================
+   NOTE＋ Ver.4.0
+   全部入り・1ファイル版
+========================================= */
 
-const STORAGE_KEY = "note_plus_v30";
+const STORAGE_KEY = "note_plus_v40";
 
+const defaultData = {
+  tasks: [],
+  xp: 0,
+  totalDone: 0,
+  totalFocus: 0,
+  dailyFocus: {},
+  streak: 0,
+  bestStreak: 0,
+  lastCompletionDate: null,
+  completionDates: [],
+  memo: "",
+  personality: "normal",
+  theme: "dark",
+  accent: "#7c5cff",
+  wallpaper: "",
+  seconds: "off",
+  clock24: "on",
+  createdAt: Date.now()
+};
 
-let data =
-  JSON.parse(
-    localStorage.getItem(STORAGE_KEY)
-  ) ||
-  {
-    tasks:[],
-    xp:0,
-    totalDone:0,
-    totalFocus:0,
-    streak:0,
-    bestStreak:0,
-    lastCompletionDate:null,
-    completionDates:[],
-    memo:"",
-    dark:false,
-    energy:"normal"
-  };
-
-
-let generatedPlan = [];
-
+let data = loadData();
 
 let timer = {
-  seconds:25*60,
-  defaultMinutes:25,
+  duration:25 * 60,
+  remaining:25 * 60,
   running:false,
   interval:null,
-  startedAt:null,
-  sessionMinutes:25
+  sessionMinutes:25,
+  taskId:null
 };
 
 
-/* =========================
-   SAVE
-========================= */
+/* =========================================
+   DATA
+========================================= */
+
+function loadData(){
+
+  try{
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if(saved){
+      return Object.assign({}, defaultData, JSON.parse(saved));
+    }
+
+  }catch(e){
+    console.error(e);
+  }
+
+  return JSON.parse(JSON.stringify(defaultData));
+}
+
 
 function saveData(){
 
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(data)
-  );
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }catch(e){
+    showToast("保存できませんでした");
+  }
 
 }
 
 
-/* =========================
-   DATE
-========================= */
-
-function localDate(){
+function todayKey(){
 
   const d = new Date();
 
-  const y = d.getFullYear();
-
-  const m =
-    String(d.getMonth()+1)
-      .padStart(2,"0");
-
-  const day =
-    String(d.getDate())
-      .padStart(2,"0");
-
-  return `${y}-${m}-${day}`;
+  return [
+    d.getFullYear(),
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
+  ].join("-");
 
 }
 
 
-function tomorrowDate(){
+function tomorrowKey(){
 
   const d = new Date();
-
   d.setDate(d.getDate()+1);
 
-  const y=d.getFullYear();
-
-  const m=
-    String(d.getMonth()+1)
-      .padStart(2,"0");
-
-  const day=
-    String(d.getDate())
-      .padStart(2,"0");
-
-  return `${y}-${m}-${day}`;
+  return [
+    d.getFullYear(),
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
+  ].join("-");
 
 }
 
 
-/* =========================
+/* =========================================
+   PAGE
+========================================= */
+
+function showPage(page){
+
+  document.querySelectorAll(".page").forEach(p=>{
+    p.classList.remove("active");
+  });
+
+  const target = document.getElementById(page);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document.querySelectorAll(".navbtn").forEach(btn=>{
+    btn.classList.toggle(
+      "active",
+      btn.dataset.page === page
+    );
+  });
+
+  render();
+}
+
+
+/* =========================================
    CLOCK
-========================= */
+========================================= */
 
 function updateClock(){
 
-  const d=new Date();
+  const now = new Date();
 
-  const date =
-    d.toLocaleDateString(
-      "ja-JP",
-      {
-        year:"numeric",
-        month:"long",
-        day:"numeric",
-        weekday:"short"
-      }
-    );
+  let hours = now.getHours();
+  const minutes = String(now.getMinutes()).padStart(2,"0");
+  const seconds = String(now.getSeconds()).padStart(2,"0");
 
-  const time =
-    d.toLocaleTimeString(
-      "ja-JP",
-      {
-        hour:"2-digit",
-        minute:"2-digit",
-        second:"2-digit"
-      }
-    );
+  let clockText;
 
-  document.getElementById("clock")
-    .textContent=time;
+  if(data.clock24 === "off"){
 
-  document.getElementById("dateText")
-    .textContent=date;
+    const ampm = hours >= 12 ? "PM" : "AM";
 
-  const h=d.getHours();
+    hours = hours % 12 || 12;
 
-  let greeting;
+    clockText =
+      `${hours}:${minutes}${data.seconds === "on" ? ":"+seconds : ""} ${ampm}`;
 
-  if(h<5){
-    greeting="まだ夜だね 🌙";
-  }
-  else if(h<11){
-    greeting="おはよう！☀️";
-  }
-  else if(h<17){
-    greeting="こんにちは！";
-  }
-  else if(h<22){
-    greeting="こんばんは！🌙";
-  }
-  else{
-    greeting="そろそろ休もう 🌙";
+  }else{
+
+    clockText =
+      `${String(hours).padStart(2,"0")}:${minutes}${data.seconds === "on" ? ":"+seconds : ""}`;
+
   }
 
-  document.getElementById("greeting")
-    .textContent=greeting;
+  document.getElementById("clock").textContent = clockText;
+
+  const weekdays = [
+    "日","月","火","水","木","金","土"
+  ];
+
+  document.getElementById("date").textContent =
+    `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日（${weekdays[now.getDay()]}）`;
+
+  updateGreeting(now);
 
 }
 
 
-setInterval(updateClock,1000);
+function updateGreeting(now){
 
-updateClock();
+  const h = now.getHours();
+
+  let text;
+
+  if(h < 6){
+    text = "🌙 まだ起きてるの？無理はしないでね。";
+  }else if(h < 10){
+    text = "🌅 おはよう。今日の一歩を始めよう。";
+  }else if(h < 17){
+    text = "☀️ 今日も少しずつ進めよう。";
+  }else if(h < 22){
+    text = "🌆 ここからもう一段進めよう。";
+  }else{
+    text = "🌙 そろそろ一日の締めにしよう。";
+  }
+
+  if(data.personality === "spartan"){
+    if(h >= 6 && h < 22){
+      text = "🔥 次の25分を取りに行こう。";
+    }
+  }
+
+  if(data.personality === "gentle"){
+    if(h >= 22){
+      text = "🌙 今日もよく頑張ったね。";
+    }
+  }
+
+  document.getElementById("greeting").textContent = text;
+
+}
 
 
-/* =========================
-   PAGE
-========================= */
+/* =========================================
+   XP / LEVEL
+========================================= */
 
-function showPage(id,button){
+function levelInfo(){
 
-  document
-    .querySelectorAll(".page")
-    .forEach(
-      page =>
-        page.classList.remove("active")
+  const level = Math.floor(data.xp / 100) + 1;
+  const current = data.xp % 100;
+
+  return {
+    level,
+    current,
+    needed:100
+  };
+
+}
+
+
+function gainXP(amount){
+
+  const before = levelInfo().level;
+
+  data.xp += amount;
+
+  const after = levelInfo().level;
+
+  saveData();
+
+  if(after > before){
+    showToast(`🎉 LEVEL UP! Lv.${after}`);
+  }
+
+}
+
+
+/* =========================================
+   TASKS
+========================================= */
+
+function addManualTask(){
+
+  const name =
+    document.getElementById("taskName").value.trim();
+
+  const minutes =
+    Math.max(
+      1,
+      Number(document.getElementById("taskMin").value) || 25
     );
 
-  document
-    .getElementById("page-"+id)
-    .classList.add("active");
+  const priority =
+    Number(document.getElementById("taskPriority").value);
 
-  document
-    .querySelectorAll(".nav button")
-    .forEach(
-      b => b.classList.remove("active")
-    );
+  const dateChoice =
+    document.getElementById("taskDate").value;
 
-  button.classList.add("active");
+  if(!name){
+    showToast("タスク名を入力してね");
+    return;
+  }
 
+  const date =
+    dateChoice === "tomorrow"
+      ? tomorrowKey()
+      : todayKey();
+
+  data.tasks.push({
+    id:crypto.randomUUID
+      ? crypto.randomUUID()
+      : Date.now()+"_"+Math.random(),
+    name,
+    minutes,
+    priority,
+    date,
+    done:false,
+    createdAt:Date.now(),
+    completedAt:null,
+    subject:detectSubject(name)
+  });
+
+  saveData();
+
+  document.getElementById("taskName").value = "";
+
+  showToast("✅ タスクを追加した！");
   render();
 
 }
 
 
-/* =========================
-   TOAST
-========================= */
+function completeTask(id){
 
-let toastTimer=null;
+  const task =
+    data.tasks.find(t=>t.id === id);
 
-function toast(message){
+  if(!task || task.done) return;
 
-  const el=
-    document.getElementById("toast");
+  task.done = true;
+  task.completedAt = Date.now();
 
-  el.textContent=message;
+  data.totalDone++;
 
-  el.classList.add("show");
+  gainXP(
+    task.priority === 3
+      ? 30
+      : task.priority === 2
+        ? 20
+        : 10
+  );
 
-  clearTimeout(toastTimer);
+  updateStreak();
 
-  toastTimer=setTimeout(
-    ()=>{
-      el.classList.remove("show");
-    },
-    2200
+  saveData();
+
+  showToast("🎉 タスク完了！XP獲得！");
+  render();
+
+}
+
+
+function undoTask(id){
+
+  const task =
+    data.tasks.find(t=>t.id === id);
+
+  if(!task) return;
+
+  if(task.done){
+    task.done = false;
+    data.totalDone = Math.max(0,data.totalDone-1);
+  }
+
+  saveData();
+  render();
+
+}
+
+
+function deleteTask(id){
+
+  if(!confirm("このタスクを削除する？")) return;
+
+  data.tasks =
+    data.tasks.filter(t=>t.id !== id);
+
+  saveData();
+  render();
+
+}
+
+
+function todayTasks(){
+
+  return data.tasks.filter(
+    t=>t.date === todayKey()
   );
 
 }
 
 
-/* =========================
-   NATURAL LANGUAGE ENGINE
-========================= */
+function unfinishedToday(){
 
-function parseDuration(text){
-
-  let total=0;
-
-  const hourMatch =
-    text.match(
-      /(\d+(?:\.\d+)?)\s*(時間|h|hour|hours)/i
-    );
-
-  const minuteMatch =
-    text.match(
-      /(\d+)\s*(分|minutes?|min)/i
-    );
-
-  if(hourMatch){
-
-    total +=
-      Number(hourMatch[1])*60;
-
-  }
-
-  if(minuteMatch){
-
-    total +=
-      Number(minuteMatch[1]);
-
-  }
-
-  return total;
+  return todayTasks()
+    .filter(t=>!t.done)
+    .sort(taskSort);
 
 }
 
 
-function detectDate(text){
+function taskSort(a,b){
 
-  if(
-    text.includes("明日") ||
-    text.includes("あした")
-  ){
-    return tomorrowDate();
+  if(b.priority !== a.priority){
+    return b.priority-a.priority;
   }
 
-  return localDate();
+  if(a.minutes !== b.minutes){
+    return a.minutes-b.minutes;
+  }
+
+  return a.createdAt-b.createdAt;
 
 }
 
 
-function detectPriority(text){
+/* =========================================
+   NEXT ACTION
+========================================= */
 
-  if(
-    text.includes("絶対") ||
-    text.includes("最優先") ||
-    text.includes("急ぎ") ||
-    text.includes("テスト") ||
-    text.includes("試験")
-  ){
-    return 3;
-  }
+function chooseNextTask(){
 
-  if(
-    text.includes("できれば") ||
-    text.includes("余裕") ||
-    text.includes("あとで")
-  ){
-    return 1;
-  }
+  const tasks = unfinishedToday();
 
-  return 2;
+  if(!tasks.length) return null;
 
-}
+  const hour = new Date().getHours();
 
+  return tasks
+    .slice()
+    .sort((a,b)=>{
 
-function detectSubject(text){
+      let sa = taskScore(a,hour);
+      let sb = taskScore(b,hour);
 
-  const subjects=[
-    "数学",
-    "英語",
-    "国語",
-    "理科",
-    "社会",
-    "地理",
-    "歴史",
-    "公民",
-    "美術",
-    "音楽",
-    "技術",
-    "家庭科",
-    "体育",
-    "保健",
-    "プログラミング",
-    "読書",
-    "宿題",
-    "勉強"
-  ];
+      return sb-sa;
 
-  for(const subject of subjects){
-
-    if(text.includes(subject)){
-
-      return subject;
-
-    }
-
-  }
-
-  return null;
+    })[0];
 
 }
 
 
-function detectAllSubjects(text){
+function taskScore(task,hour){
 
-  const subjects=[
+  let score = task.priority * 100;
+
+  if(task.minutes <= 25){
+    score += 15;
+  }
+
+  if(task.minutes <= 10){
+    score += 8;
+  }
+
+  if(task.name.includes("テスト") ||
+     task.name.includes("試験") ||
+     task.name.includes("提出")){
+    score += 30;
+  }
+
+  if(data.personality === "spartan"){
+    score += task.priority * 10;
+  }
+
+  if(hour >= 21 && task.minutes > 30){
+    score -= 15;
+  }
+
+  return score;
+
+}
+
+
+function startNext(){
+
+  const task = chooseNextTask();
+
+  if(!task){
+    showToast("今日の未完了タスクはないよ！🎉");
+    return;
+  }
+
+  timer.taskId = task.id;
+  setTimer(Math.min(25,task.minutes));
+
+  showPage("focus");
+
+  document.getElementById("timerTask").textContent =
+    `🎯 ${task.name} / ${task.minutes}分`;
+
+}
+
+
+/* =========================================
+   STREAK
+========================================= */
+
+function updateStreak(){
+
+  const today = todayKey();
+
+  if(data.completionDates.includes(today)){
+    return;
+  }
+
+  data.completionDates.push(today);
+
+  const yesterdayDate = new Date();
+
+  yesterdayDate.setDate(
+    yesterdayDate.getDate()-1
+  );
+
+  const yesterday =
+    [
+      yesterdayDate.getFullYear(),
+      String(yesterdayDate.getMonth()+1).padStart(2,"0"),
+      String(yesterdayDate.getDate()).padStart(2,"0")
+    ].join("-");
+
+  if(data.lastCompletionDate === yesterday){
+    data.streak++;
+  }else{
+    data.streak = 1;
+  }
+
+  data.bestStreak =
+    Math.max(data.bestStreak,data.streak);
+
+  data.lastCompletionDate = today;
+
+}
+
+
+/* =========================================
+   PLANNER
+========================================= */
+
+function makePlan(){
+
+  const text =
+    document.getElementById("plannerInput").value.trim();
+
+  if(!text){
+    showToast("予定を書いてね");
+    return;
+  }
+
+  const result = parseNaturalLanguage(text);
+
+  if(!result.length){
+    document.getElementById("planResult").innerHTML =
+      `<div class="warningbox">
+        うまく予定を読み取れなかったよ。<br>
+        「数学を2時間」「英語を30分」などの書き方がおすすめ！
+      </div>`;
+    return;
+  }
+
+  window.currentPlan = result;
+
+  let html = `
+    <div class="notice">
+      ✨ ${result.length}個のタスクを作成します
+    </div>
+  `;
+
+  result.forEach((t,i)=>{
+
+    html += `
+      <div class="plan-item">
+        <strong>${i+1}. ${escapeHTML(t.name)}</strong>
+        <span class="muted">${t.minutes}分 / ${t.priority === 3 ? "最優先" : t.priority === 2 ? "重要" : "普通"} / ${t.date === todayKey() ? "今日" : "明日"}</span>
+      </div>
+    `;
+
+  });
+
+  html += `
+    <button class="btn green" onclick="applyPlan()">
+      ✅ この予定をタスクにする
+    </button>
+  `;
+
+  document.getElementById("planResult").innerHTML = html;
+
+}
+
+
+function parseNaturalLanguage(text){
+
+  const date =
+    /明日|あした|明後日|あさって/.test(text)
+      ? tomorrowKey()
+      : todayKey();
+
+  let priority = 1;
+
+  if(/絶対|最優先|急ぎ|テスト|試験|提出/.test(text)){
+    priority = 3;
+  }else if(/重要|大事/.test(text)){
+    priority = 2;
+  }
+
+  const subjects = [
     "数学",
     "英語",
     "国語",
@@ -1510,42 +1640,96 @@ function detectAllSubjects(text){
     "宿題"
   ];
 
-  return subjects.filter(
-    s=>text.includes(s)
-  );
+  const results = [];
+
+  const pattern =
+    /(数学|英語|国語|理科|社会|地理|歴史|公民|美術|音楽|技術|家庭科|体育|保健|読書|宿題)[^。！？,\n]*?(\d+(?:\.\d+)?)\s*(時間|時|分)/g;
+
+  let match;
+
+  while((match = pattern.exec(text)) !== null){
+
+    const subject = match[1];
+    const number = Number(match[2]);
+    const unit = match[3];
+
+    let minutes =
+      unit === "分"
+        ? Math.round(number)
+        : Math.round(number*60);
+
+    minutes = Math.max(1,minutes);
+
+    const chunks = splitMinutes(minutes);
+
+    chunks.forEach((m,index)=>{
+
+      results.push({
+        name:
+          chunks.length > 1
+            ? `${subject} ${index+1}`
+            : subject,
+        minutes:m,
+        priority,
+        date,
+        done:false
+      });
+
+    });
+
+  }
+
+  if(!results.length){
+
+    const generic =
+      text.match(/(\d+(?:\.\d+)?)\s*(時間|時|分)/);
+
+    if(generic){
+
+      let minutes =
+        generic[2] === "分"
+          ? Number(generic[1])
+          : Number(generic[1])*60;
+
+      const detected =
+        subjects.find(s=>text.includes(s)) ||
+        "予定";
+
+      splitMinutes(minutes).forEach((m,i)=>{
+
+        results.push({
+          name:
+            `${detected}${minutes > 25 ? " "+(i+1) : ""}`,
+          minutes:m,
+          priority,
+          date,
+          done:false
+        });
+
+      });
+
+    }
+
+  }
+
+  return results;
 
 }
 
 
-function splitMinutes(total){
+function splitMinutes(minutes){
 
-  const result=[];
+  const result = [];
 
-  let remaining=total;
+  let left = Math.round(minutes);
 
-  while(remaining>0){
+  while(left > 0){
 
-    if(remaining>=50){
+    const chunk = Math.min(25,left);
 
-      result.push(25);
+    result.push(chunk);
 
-      remaining-=25;
-
-    }
-    else if(remaining>=25){
-
-      result.push(25);
-
-      remaining-=25;
-
-    }
-    else{
-
-      result.push(remaining);
-
-      remaining=0;
-
-    }
+    left -= chunk;
 
   }
 
@@ -1554,1369 +1738,1120 @@ function splitMinutes(total){
 }
 
 
-function analyzeNaturalLanguage(){
-
-  const input=
-    document
-      .getElementById("naturalInput")
-      .value
-      .trim();
-
-  if(!input){
-
-    toast("まず予定を書いてみて！");
-
-    return;
-
-  }
-
-
-  let duration=
-    parseDuration(input);
-
-
-  if(duration<=0){
-
-    duration=25;
-
-  }
-
-
-  const date=
-    detectDate(input);
-
-
-  const priority=
-    detectPriority(input);
-
-
-  const subjects=
-    detectAllSubjects(input);
-
-
-  let subject=
-    detectSubject(input);
-
-
-  if(!subject){
-
-    subject="勉強";
-
-  }
-
-
-  /*
-    複数科目が書かれている場合
-  */
-
-  let parts=[];
-
-
-  if(subjects.length>=2){
-
-    const each=
-      Math.floor(
-        duration/subjects.length
-      );
-
-    let remaining=duration;
-
-    subjects.forEach(
-      (s,index)=>{
-
-        const mins=
-          index===subjects.length-1
-            ?remaining
-            :each;
-
-        parts.push({
-          name:s,
-          minutes:Math.max(5,mins),
-          priority,
-          date
-        });
-
-        remaining-=mins;
-
-      }
-    );
-
-  }
-  else{
-
-    const chunks=
-      splitMinutes(duration);
-
-    chunks.forEach(
-      (minutes,index)=>{
-
-        parts.push({
-          name:
-            chunks.length===1
-              ?subject
-              :`${subject} ${index+1}セット`,
-          minutes,
-          priority,
-          date
-        });
-
-      }
-    );
-
-  }
-
-
-  generatedPlan=parts;
-
-
-  document.getElementById("planTitle")
-    .textContent =
-      `${formatDateLabel(date)}に${subject}を${duration}分`;
-
-
-  const container=
-    document.getElementById("planItems");
-
-
-  container.innerHTML=
-    generatedPlan
-      .map(
-        (item,index)=>`
-
-          <div class="plan-item">
-
-            <div class="plan-number">
-              ${index+1}
-            </div>
-
-            <div>
-
-              <div class="plan-name">
-                ${escapeHTML(item.name)}
-              </div>
-
-              <div class="sub">
-                ${item.minutes}分
-                ・${priorityLabel(item.priority)}
-              </div>
-
-            </div>
-
-          </div>
-
-        `
-      )
-      .join("");
-
-
-  document
-    .getElementById("planResult")
-    .classList.add("show");
-
-
-  toast("予定を作ったよ！");
-
-}
-
-
-function formatDateLabel(date){
-
-  if(date===localDate()){
-
-    return "今日";
-
-  }
-
-  if(date===tomorrowDate()){
-
-    return "明日";
-
-  }
-
-  return date;
-
-}
-
-
-/* =========================
-   APPLY PLAN
-========================= */
-
 function applyPlan(){
 
-  if(!generatedPlan.length){
+  if(!window.currentPlan) return;
 
-    return;
+  window.currentPlan.forEach(t=>{
 
-  }
-
-
-  generatedPlan.forEach(
-    item=>{
-
-      data.tasks.push({
-
-        id:
-          Date.now()+
-          Math.random(),
-
-        name:item.name,
-
-        minutes:item.minutes,
-
-        priority:item.priority,
-
-        date:item.date,
-
-        done:false,
-
-        createdAt:Date.now(),
-
-        completedAt:null
-
-      });
-
-    }
-  );
-
-
-  saveData();
-
-  cancelPlan();
-
-  render();
-
-  toast(
-    `${generatedPlan.length}個の予定を追加したよ！`
-  );
-
-}
-
-
-function cancelPlan(){
-
-  generatedPlan=[];
-
-  document
-    .getElementById("planResult")
-    .classList.remove("show");
-
-}
-
-
-/* =========================
-   MANUAL TASK
-========================= */
-
-function addManualTask(){
-
-  const name=
-    document
-      .getElementById("taskName")
-      .value
-      .trim();
-
-  if(!name){
-
-    toast("タスク名を入力してね");
-
-    return;
-
-  }
-
-
-  const minutes=
-    Number(
-      document.getElementById("taskMinutes")
-        .value
-    ) || 25;
-
-
-  const priority=
-    Number(
-      document.getElementById("taskPriority")
-        .value
-    ) || 2;
-
-
-  data.tasks.push({
-
-    id:
-      Date.now()+
-      Math.random(),
-
-    name,
-
-    minutes,
-
-    priority,
-
-    date:localDate(),
-
-    done:false,
-
-    createdAt:Date.now(),
-
-    completedAt:null
+    data.tasks.push({
+      id:crypto.randomUUID
+        ? crypto.randomUUID()
+        : Date.now()+"_"+Math.random(),
+      name:t.name,
+      minutes:t.minutes,
+      priority:t.priority,
+      date:t.date,
+      done:false,
+      createdAt:Date.now(),
+      completedAt:null,
+      subject:detectSubject(t.name)
+    });
 
   });
 
-
-  document.getElementById("taskName")
-    .value="";
-
-  document.getElementById("taskMinutes")
-    .value="";
-
-
   saveData();
 
-  render();
-
-  toast("タスクを追加したよ！");
-
-}
-
-
-/* =========================
-   TASK SCORE
-========================= */
-
-function taskScore(task){
-
-  if(task.done){
-
-    return -999999;
-
-  }
-
-
-  let score=0;
-
-
-  score +=
-    task.priority*100;
-
-
-  if(task.date===localDate()){
-
-    score+=100;
-
-  }
-  else if(task.date===tomorrowDate()){
-
-    score+=50;
-
-  }
-
-
-  score -=
-    Math.min(task.minutes,120);
-
-
-  if(data.energy==="low"){
-
-    if(task.minutes<=25){
-
-      score+=40;
-
-    }
-
-    if(task.minutes>=60){
-
-      score-=30;
-
-    }
-
-  }
-
-
-  if(data.energy==="high"){
-
-    if(task.priority===3){
-
-      score+=20;
-
-    }
-
-  }
-
-
-  return score;
+  showToast("🎉 予定をタスクに追加した！");
+  showPage("tasks");
 
 }
 
 
-function getNextTask(){
-
-  const active=
-    data.tasks
-      .filter(t=>!t.done);
-
-
-  if(!active.length){
-
-    return null;
-
-  }
-
-
-  active.sort(
-    (a,b)=>
-      taskScore(b)-taskScore(a)
-  );
-
-
-  return active[0];
-
-}
-
-
-/* =========================
-   START NEXT
-========================= */
-
-function startNextTask(){
-
-  const task=
-    getNextTask();
-
-
-  if(!task){
-
-    toast("🎉 やることは全部終わった！");
-
-    showFocus();
-
-    return;
-
-  }
-
-
-  showFocus();
-
-  setTimer(task.minutes);
-
-  document.getElementById("timerState")
-    .textContent=
-      "🎯 "+task.name;
-
-
-  toast(
-    `次は「${task.name}」！`
-  );
-
-}
-
-
-function showFocus(){
-
-  const buttons=
-    document.querySelectorAll(
-      ".nav button"
-    );
-
-  showPage(
-    "focus",
-    buttons[2]
-  );
-
-}
-
-
-/* =========================
-   TASK TOGGLE
-========================= */
-
-function toggleTask(id){
-
-  const task=
-    data.tasks.find(
-      t=>String(t.id)===String(id)
-    );
-
-
-  if(!task){
-
-    return;
-
-  }
-
-
-  if(task.done){
-
-    task.done=false;
-
-    if(data.totalDone>0){
-
-      data.totalDone--;
-
-    }
-
-    task.completedAt=null;
-
-  }
-  else{
-
-    task.done=true;
-
-    task.completedAt=Date.now();
-
-    data.totalDone++;
-
-    data.xp +=
-      Math.max(
-        10,
-        task.minutes
-      );
-
-
-    registerCompletion();
-
-  }
-
-
-  saveData();
-
-  render();
-
-}
-
-
-function deleteTask(id){
-
-  data.tasks=
-    data.tasks.filter(
-      t=>String(t.id)!==String(id)
-    );
-
-
-  saveData();
-
-  render();
-
-  toast("削除したよ");
-
-}
-
-
-/* =========================
-   STREAK
-========================= */
-
-function registerCompletion(){
-
-  const today=localDate();
-
-
-  if(
-    !data.completionDates
-      .includes(today)
-  ){
-
-    data.completionDates.push(today);
-
-  }
-
-
-  const yesterday=
-    new Date();
-
-  yesterday.setDate(
-    yesterday.getDate()-1
-  );
-
-
-  const y=
-    `${yesterday.getFullYear()}-`+
-    `${String(yesterday.getMonth()+1).padStart(2,"0")}-`+
-    `${String(yesterday.getDate()).padStart(2,"0")}`;
-
-
-  if(data.lastCompletionDate===y){
-
-    data.streak++;
-
-  }
-  else if(
-    data.lastCompletionDate!==today
-  ){
-
-    data.streak=1;
-
-  }
-
-
-  data.lastCompletionDate=today;
-
-
-  if(data.streak>data.bestStreak){
-
-    data.bestStreak=data.streak;
-
-  }
-
-}
-
-
-/* =========================
-   ENERGY
-========================= */
-
-function setEnergy(level){
-
-  data.energy=level;
-
-  saveData();
-
-  render();
-
-}
-
-
-/* =========================
+/* =========================================
    TIMER
-========================= */
+========================================= */
 
 function setTimer(minutes){
 
-  pauseTimer();
+  if(timer.running){
+    stopTimer();
+  }
 
-  timer.seconds=
-    minutes*60;
+  timer.duration = minutes*60;
+  timer.remaining = minutes*60;
+  timer.sessionMinutes = minutes;
 
-  timer.defaultMinutes=
-    minutes;
-
-  timer.sessionMinutes=
-    minutes;
-
-  updateTimer();
-
-  document.getElementById("timerState")
-    .textContent=
-      `${minutes}分集中する準備完了`;
+  updateTimerDisplay();
 
 }
 
 
-function updateTimer(){
+function customTimer(){
 
-  const m=
-    Math.floor(timer.seconds/60)
-      .toString()
-      .padStart(2,"0");
+  const value =
+    prompt("何分集中する？", "30");
+
+  if(value === null) return;
+
+  const minutes =
+    Number(value);
+
+  if(!minutes || minutes <= 0){
+    showToast("正しい時間を入力してね");
+    return;
+  }
+
+  setTimer(Math.min(180,Math.round(minutes)));
+
+}
 
 
-  const s=
-    (timer.seconds%60)
-      .toString()
-      .padStart(2,"0");
+function toggleTimer(){
 
-
-  document.getElementById("timer")
-    .textContent=
-      `${m}:${s}`;
+  if(timer.running){
+    stopTimer();
+  }else{
+    startTimer();
+  }
 
 }
 
 
 function startTimer(){
 
-  if(timer.running){
+  timer.running = true;
 
-    return;
+  document.getElementById("timerBtn").textContent =
+    "⏸ 一時停止";
 
-  }
+  timer.interval =
+    setInterval(()=>{
 
+      timer.remaining--;
 
-  timer.running=true;
+      updateTimerDisplay();
 
-  timer.startedAt=Date.now();
+      if(timer.remaining <= 0){
+        finishTimer();
+      }
 
-  document.getElementById("timerState")
-    .textContent=
-      "🔥 集中中……";
-
-
-  timer.interval=
-    setInterval(
-      ()=>{
-
-        timer.seconds--;
-
-        updateTimer();
-
-
-        if(timer.seconds<=0){
-
-          finishTimer();
-
-        }
-
-      },
-      1000
-    );
+    },1000);
 
 }
 
 
-function pauseTimer(){
+function stopTimer(){
 
-  if(!timer.running){
-
-    return;
-
-  }
-
+  timer.running = false;
 
   clearInterval(timer.interval);
 
-  timer.interval=null;
-
-  timer.running=false;
-
-
-  document.getElementById("timerState")
-    .textContent=
-      "一時停止";
+  document.getElementById("timerBtn").textContent =
+    "▶ スタート";
 
 }
 
 
 function resetTimer(){
 
-  pauseTimer();
+  stopTimer();
 
-  timer.seconds=
-    timer.defaultMinutes*60;
+  timer.remaining = timer.duration;
 
-  updateTimer();
-
-  document.getElementById("timerState")
-    .textContent=
-      "準備完了";
+  updateTimerDisplay();
 
 }
 
 
 function finishTimer(){
 
-  clearInterval(timer.interval);
+  stopTimer();
 
-  timer.interval=null;
-
-  timer.running=false;
-
-
-  const minutes=
+  const minutes =
     timer.sessionMinutes;
-
 
   data.totalFocus += minutes;
 
-  data.xp += minutes;
+  const today = todayKey();
 
+  data.dailyFocus[today] =
+    (data.dailyFocus[today] || 0) + minutes;
 
-  saveData();
+  gainXP(Math.max(5,Math.round(minutes/2)));
 
-  render();
+  if(timer.taskId){
 
+    const task =
+      data.tasks.find(t=>t.id === timer.taskId);
 
-  document.getElementById("timerState")
-    .textContent=
-      "🎉 集中終了！";
+    if(task){
 
+      task.focusedMinutes =
+        (task.focusedMinutes || 0) + minutes;
 
-  alert(
-    `お疲れさま！ ${minutes}分集中したよ。`
-  );
-
-
-  timer.seconds=
-    timer.defaultMinutes*60;
-
-  updateTimer();
-
-}
-
-
-/* =========================
-   RENDER
-========================= */
-
-function render(){
-
-  const level=
-    Math.floor(data.xp/500)+1;
-
-
-  const current=
-    data.xp%500;
-
-
-  document.getElementById("level")
-    .textContent=level;
-
-
-  document.getElementById("xp")
-    .textContent=data.xp;
-
-
-  document.getElementById("streak")
-    .textContent=data.streak;
-
-
-  document.getElementById("focusTotal")
-    .textContent=
-      data.totalFocus+"分";
-
-
-  document.getElementById("xpText")
-    .textContent=
-      `${current} / 500 XP`;
-
-
-  document.getElementById("xpBar")
-    .style.width=
-      `${current/500*100}%`;
-
-
-  const total=
-    data.tasks.length;
-
-
-  const done=
-    data.tasks.filter(
-      t=>t.done
-    ).length;
-
-
-  const percent=
-    total
-      ? Math.round(done/total*100)
-      : 0;
-
-
-  document.getElementById("todayPercent")
-    .textContent=
-      `${percent}%`;
-
-
-  document.getElementById("todayBar")
-    .style.width=
-      `${percent}%`;
-
-
-  document.getElementById("todayTaskText")
-    .textContent=
-      `${done} / ${total}`;
-
-
-  const next=
-    getNextTask();
-
-
-  document.getElementById("nextTask")
-    .textContent=
-      next
-        ? `${next.name}（${next.minutes}分）`
-        : "🎉 今日のタスクは全部終わった！";
-
-
-  renderTasks();
-
-  renderStats();
-
-  renderEnergy();
-
-  renderMemo();
-
-}
-
-
-/* =========================
-   TASK LIST
-========================= */
-
-function renderTasks(){
-
-  const list=
-    document.getElementById("taskList");
-
-
-  const home=
-    document.getElementById("homeTasks");
-
-
-  if(!data.tasks.length){
-
-    list.innerHTML=
-      `<div class="empty">
-        まだタスクがないよ。
-      </div>`;
-
-
-    home.innerHTML=
-      `<div class="empty">
-        📝 まず予定を作ってみよう！
-      </div>`;
-
-    return;
+    }
 
   }
 
+  saveData();
 
-  const sorted=
-    [...data.tasks]
-      .sort(
-        (a,b)=>
-          Number(a.done)-
-          Number(b.done)
-      );
+  showToast(`⏱️ ${minutes}分集中完了！XP獲得！`);
 
+  timer.remaining = timer.duration;
 
-  list.innerHTML=
-    sorted
-      .map(taskHTML)
-      .join("");
+  updateTimerDisplay();
 
-
-  const todayTasks=
-    sorted
-      .filter(
-        t=>
-          !t.date ||
-          t.date===localDate()
-      )
-      .slice(0,8);
-
-
-  home.innerHTML=
-    todayTasks.length
-      ? todayTasks.map(taskHTML).join("")
-      : `<div class="empty">
-          今日のタスクはないよ。
-        </div>`;
+  render();
 
 }
 
 
-function taskHTML(task){
+function updateTimerDisplay(){
 
-  const priority=
-    priorityLabel(task.priority);
+  const totalSeconds =
+    Math.max(0,timer.remaining);
 
+  const min =
+    Math.floor(totalSeconds/60);
 
-  const cls=
-    task.priority===3
-      ? "priority-high"
-      : task.priority===2
-      ? "priority-normal"
-      : "priority-low";
+  const sec =
+    totalSeconds%60;
 
+  document.getElementById("timerDisplay").textContent =
+    `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
 
-  return `
-
-    <div
-      class="task ${task.done?"done":""}"
-    >
-
-      <button
-        class="task-check"
-        onclick="toggleTask('${task.id}')"
-      >
-        ${task.done?"✓":""}
-      </button>
+}
 
 
-      <div class="task-info">
+/* =========================================
+   TIMER TASK
+========================================= */
 
-        <div class="task-name">
-          ${escapeHTML(task.name)}
+function selectTimerTask(){
+
+  const tasks =
+    unfinishedToday();
+
+  if(!tasks.length){
+    showToast("今日の未完了タスクがないよ");
+    return;
+  }
+
+  let text =
+    "集中するタスクの番号を入力：\n\n";
+
+  tasks.forEach((t,i)=>{
+    text += `${i+1}. ${t.name} (${t.minutes}分)\n`;
+  });
+
+  const answer =
+    prompt(text,"1");
+
+  if(answer === null) return;
+
+  const index =
+    Number(answer)-1;
+
+  if(index < 0 || index >= tasks.length){
+    showToast("番号が違うよ");
+    return;
+  }
+
+  timer.taskId = tasks[index].id;
+
+  document.getElementById("timerTask").textContent =
+    `🎯 ${tasks[index].name}`;
+
+}
+
+
+/* =========================================
+   MEMO
+========================================= */
+
+function saveMemo(){
+
+  data.memo =
+    document.getElementById("memoText").value;
+
+  saveData();
+
+  showToast("📝 メモを保存した！");
+}
+
+
+function convertMemoToTasks(){
+
+  const text =
+    document.getElementById("memoText").value.trim();
+
+  if(!text){
+    showToast("メモが空だよ");
+    return;
+  }
+
+  const lines =
+    text
+      .split(/\n|。/)
+      .map(x=>x.trim())
+      .filter(Boolean);
+
+  lines.forEach(line=>{
+
+    data.tasks.push({
+      id:crypto.randomUUID
+        ? crypto.randomUUID()
+        : Date.now()+"_"+Math.random(),
+      name:line,
+      minutes:25,
+      priority:/急ぎ|絶対|提出|テスト/.test(line) ? 3 : 1,
+      date:todayKey(),
+      done:false,
+      createdAt:Date.now(),
+      completedAt:null,
+      subject:detectSubject(line)
+    });
+
+  });
+
+  saveData();
+
+  showToast(`🧠 ${lines.length}個のタスク候補を作った！`);
+
+  showPage("tasks");
+
+}
+
+
+/* =========================================
+   SUBJECT
+========================================= */
+
+function detectSubject(text){
+
+  const subjects = [
+    "数学","英語","国語","理科","社会",
+    "地理","歴史","公民","美術","音楽",
+    "技術","家庭科","体育","保健","読書",
+    "宿題"
+  ];
+
+  return subjects.find(s=>text.includes(s)) || "その他";
+
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+function renderStats(){
+
+  document.getElementById("sDone").textContent =
+    data.totalDone;
+
+  document.getElementById("sFocus").textContent =
+    data.totalFocus;
+
+  document.getElementById("sXP").textContent =
+    data.xp;
+
+  const subjects = {};
+
+  data.tasks.forEach(t=>{
+
+    const s =
+      t.subject || detectSubject(t.name);
+
+    subjects[s] =
+      (subjects[s] || 0) +
+      (t.done ? 1 : 0);
+
+  });
+
+  const subjectNames =
+    Object.keys(subjects);
+
+  if(!subjectNames.length){
+
+    document.getElementById("subjectStats").innerHTML =
+      `<div class="empty">まだデータがありません。</div>`;
+
+  }else{
+
+    document.getElementById("subjectStats").innerHTML =
+      subjectNames
+        .sort((a,b)=>subjects[b]-subjects[a])
+        .map(s=>{
+
+          const total =
+            data.tasks.filter(t=>
+              (t.subject || detectSubject(t.name)) === s
+            ).length;
+
+          const percent =
+            total
+              ? Math.round(subjects[s]/total*100)
+              : 0;
+
+          return `
+            <div class="subjectbar">
+              <span>${escapeHTML(s)}</span>
+              <div class="progress">
+                <div class="bar" style="width:${percent}%"></div>
+              </div>
+              <span class="small">${subjects[s]}/${total}</span>
+            </div>
+          `;
+
+        }).join("");
+
+  }
+
+  renderAchievements();
+
+}
+
+
+function renderAchievements(){
+
+  const achievements = [
+
+    {
+      icon:"🌱",
+      name:"はじめの一歩",
+      desc:"初めてタスクを完了",
+      ok:data.totalDone >= 1
+    },
+
+    {
+      icon:"🔥",
+      name:"3日連続",
+      desc:"3日連続でタスクを完了",
+      ok:data.bestStreak >= 3
+    },
+
+    {
+      icon:"🔥🔥",
+      name:"7日連続",
+      desc:"7日連続でタスクを完了",
+      ok:data.bestStreak >= 7
+    },
+
+    {
+      icon:"⚡",
+      name:"100 XP",
+      desc:"XPを100獲得",
+      ok:data.xp >= 100
+    },
+
+    {
+      icon:"📚",
+      name:"10時間集中",
+      desc:"累計600分集中",
+      ok:data.totalFocus >= 600
+    },
+
+    {
+      icon:"👑",
+      name:"ラスボス撃破",
+      desc:"重要タスクを10個完了",
+      ok:data.tasks.filter(t=>t.done && t.priority===3).length >= 10
+    },
+
+    {
+      icon:"💯",
+      name:"パーフェクト",
+      desc:"1日のタスクをすべて完了",
+      ok:perfectDay()
+    }
+
+  ];
+
+  document.getElementById("achievements").innerHTML =
+    achievements.map(a=>`
+
+      <div class="achievement ${a.ok ? "" : "locked"}">
+
+        <div class="achievement-icon">${a.icon}</div>
+
+        <div>
+          <strong>${a.name}</strong>
+          <div class="small muted">${a.desc}</div>
         </div>
 
-        <div class="task-meta">
-
-          ${task.minutes}分
-
-          ・
-
-          <span class="${cls}">
-            ${priority}
-          </span>
-
-          ・
-
-          ${formatDateLabel(task.date)}
-
+        <div style="margin-left:auto">
+          ${a.ok ? "✅" : "🔒"}
         </div>
 
       </div>
 
+    `).join("");
+
+}
+
+
+function perfectDay(){
+
+  const tasks =
+    todayTasks();
+
+  return tasks.length > 0 &&
+    tasks.every(t=>t.done);
+
+}
+
+
+/* =========================================
+   HOME RENDER
+========================================= */
+
+function renderHome(){
+
+  const info = levelInfo();
+
+  document.getElementById("level").textContent =
+    info.level;
+
+  document.getElementById("xpbar").style.width =
+    `${info.current}%`;
+
+  document.getElementById("xptext").textContent =
+    `${info.current} / 100 XP`;
+
+  document.getElementById("streak").textContent =
+    data.streak;
+
+  document.getElementById("bestStreak").textContent =
+    data.bestStreak;
+
+  const tasks =
+    todayTasks();
+
+  const done =
+    tasks.filter(t=>t.done).length;
+
+  const rate =
+    tasks.length
+      ? Math.round(done/tasks.length*100)
+      : 0;
+
+  document.getElementById("rate").textContent =
+    `${rate}%`;
+
+  document.getElementById("ratebar").style.width =
+    `${rate}%`;
+
+  const today =
+    todayKey();
+
+  document.getElementById("focusToday").textContent =
+    `${data.dailyFocus[today] || 0}分`;
+
+  document.getElementById("focusTotal").textContent =
+    data.totalFocus;
+
+  const next =
+    chooseNextTask();
+
+  if(next){
+
+    document.getElementById("nextTitle").textContent =
+      next.name;
+
+    document.getElementById("nextMeta").textContent =
+      `${next.minutes}分 / ${priorityText(next.priority)} / ${next.subject}`;
+
+  }else{
+
+    document.getElementById("nextTitle").textContent =
+      tasks.length
+        ? "🎉 今日のタスクは全部完了！"
+        : "まずはタスクを追加しよう";
+
+    document.getElementById("nextMeta").textContent =
+      tasks.length
+        ? "今日はかなり進んだね。"
+        : "予定ページから自然文でも追加できます。";
+
+  }
+
+  const boss =
+    tasks
+      .filter(t=>!t.done)
+      .sort(taskSort)
+      .find(t=>t.priority===3) ||
+    tasks
+      .filter(t=>!t.done)
+      .sort(taskSort)[0];
+
+  if(boss){
+
+    document.getElementById("boss").innerHTML =
+      `<strong>${escapeHTML(boss.name)}</strong>
+       <div class="muted">${boss.minutes}分 / ${priorityText(boss.priority)}</div>`;
+
+  }else{
+
+    document.getElementById("boss").innerHTML =
+      tasks.length
+        ? "🏆 ラスボス撃破！"
+        : "まだタスクがありません。";
+
+  }
+
+  document.getElementById("command").textContent =
+    makeCommand(tasks,rate);
+
+  renderHomeTasks();
+  renderTimeline();
+
+}
+
+
+function makeCommand(tasks,rate){
+
+  if(!tasks.length){
+    return "今日は何をする？自然文で予定を入力してみよう。";
+  }
+
+  if(rate===100){
+    return "🎉 今日の予定を全部クリア！自由時間にしてOK。";
+  }
+
+  const next = chooseNextTask();
+
+  if(!next){
+    return "かなり進んでる。残りもあと少し！";
+  }
+
+  const style = data.personality;
+
+  if(style==="spartan"){
+    return `🔥 ${next.name}を${next.minutes}分。今やろう。`;
+  }
+
+  if(style==="gentle"){
+    return `🌱 まずは${next.minutes}分だけ、${next.name}をやってみよう。`;
+  }
+
+  return `👉 次は「${next.name}」を${next.minutes}分がおすすめ。`;
+
+}
+
+
+function renderHomeTasks(){
+
+  const tasks =
+    todayTasks().sort(taskSort);
+
+  if(!tasks.length){
+
+    document.getElementById("homeTasks").innerHTML =
+      `<div class="empty">今日のタスクはまだありません。</div>`;
+
+    return;
+  }
+
+  document.getElementById("homeTasks").innerHTML =
+    tasks.map(taskHTML).join("");
+
+}
+
+
+function renderTaskLists(){
+
+  const today =
+    todayTasks();
+
+  const unfinished =
+    today.filter(t=>!t.done).sort(taskSort);
+
+  const completed =
+    today.filter(t=>t.done).sort(
+      (a,b)=>
+        (b.completedAt||0)-(a.completedAt||0)
+    );
+
+  document.getElementById("taskList").innerHTML =
+    unfinished.length
+      ? unfinished.map(taskHTML).join("")
+      : `<div class="empty">未完了タスクはありません 🎉</div>`;
+
+  document.getElementById("completedList").innerHTML =
+    completed.length
+      ? completed.map(taskHTML).join("")
+      : `<div class="empty">まだ完了タスクはありません。</div>`;
+
+}
+
+
+function taskHTML(t){
+
+  return `
+    <div class="task ${t.done ? "done" : ""}">
 
       <button
-        class="delete"
-        onclick="deleteTask('${task.id}')"
-      >
-        ×
-      </button>
+        class="check"
+        onclick="${t.done ? `undoTask('${t.id}')` : `completeTask('${t.id}')`}"
+      ></button>
+
+      <div class="task-info">
+
+        <div class="taskname">
+          ${escapeHTML(t.name)}
+        </div>
+
+        <div class="taskmeta">
+          ${t.minutes}分 /
+          ${priorityText(t.priority)} /
+          ${escapeHTML(t.subject || "その他")}
+        </div>
+
+      </div>
+
+      <div class="task-actions">
+
+        ${
+          !t.done
+            ? `<button class="smallbtn" onclick="focusThisTask('${t.id}')">▶</button>`
+            : ""
+        }
+
+        <button
+          class="smallbtn"
+          onclick="deleteTask('${t.id}')"
+        >
+          🗑
+        </button>
+
+      </div>
 
     </div>
-
   `;
 
 }
 
 
-function priorityLabel(priority){
+function focusThisTask(id){
 
-  if(priority===3){
+  const task =
+    data.tasks.find(t=>t.id===id);
 
-    return "🔥高";
+  if(!task) return;
 
-  }
+  timer.taskId = id;
 
-  if(priority===1){
+  setTimer(Math.min(25,task.minutes));
 
-    return "低";
+  document.getElementById("timerTask").textContent =
+    `🎯 ${task.name}`;
 
-  }
-
-  return "普通";
-
-}
-
-
-/* =========================
-   STATS
-========================= */
-
-function renderStats(){
-
-  document.getElementById("statXP")
-    .textContent=data.xp;
-
-
-  document.getElementById("statDone")
-    .textContent=data.totalDone;
-
-
-  document.getElementById("statFocus")
-    .textContent=
-      data.totalFocus+"分";
-
-
-  document.getElementById("statBest")
-    .textContent=data.bestStreak;
-
-
-  const achievements=[];
-
-
-  if(data.totalDone>=1){
-
-    achievements.push(
-      "🏁 最初の一歩"
-    );
-
-  }
-
-  if(data.totalDone>=10){
-
-    achievements.push(
-      "📚 タスク10個達成"
-    );
-
-  }
-
-  if(data.totalDone>=50){
-
-    achievements.push(
-      "🔥 タスク50個達成"
-    );
-
-  }
-
-  if(data.totalFocus>=60){
-
-    achievements.push(
-      "⏱️ 1時間集中"
-    );
-
-  }
-
-  if(data.totalFocus>=300){
-
-    achievements.push(
-      "💪 5時間集中"
-    );
-
-  }
-
-  if(data.streak>=3){
-
-    achievements.push(
-      "🔥 3日連続"
-    );
-
-  }
-
-  if(data.streak>=7){
-
-    achievements.push(
-      "👑 7日連続"
-    );
-
-  }
-
-
-  document.getElementById("achievements")
-    .innerHTML=
-      achievements.length
-        ? achievements
-            .map(
-              a=>
-                `<div class="task">
-                  <div>${a}</div>
-                </div>`
-            )
-            .join("")
-        : `<div class="empty">
-            まだ実績がないよ。<br>
-            まず1つタスクを終わらせよう！
-          </div>`;
+  showPage("focus");
 
 }
 
 
-/* =========================
-   ENERGY UI
-========================= */
+/* =========================================
+   TIMELINE
+========================================= */
 
-function renderEnergy(){
+function renderTimeline(){
 
-  ["high","normal","low"]
-    .forEach(
-      level=>{
-
-        const el=
-          document.getElementById(
-            "energy-"+level
-          );
-
-        if(!el)return;
-
-        el.classList.toggle(
-          "active",
-          data.energy===level
-        );
-
-      }
+  const tasks =
+    todayTasks().sort(
+      (a,b)=>a.createdAt-b.createdAt
     );
 
-}
+  if(!tasks.length){
 
+    document.getElementById("timeline").innerHTML =
+      `<div class="empty">タスクを追加するとここに予定が表示されます。</div>`;
 
-/* =========================
-   MEMO
-========================= */
-
-function renderMemo(){
-
-  const memo=
-    document.getElementById("memo");
-
-
-  if(
-    document.activeElement!==memo
-  ){
-
-    memo.value=data.memo;
-
+    return;
   }
 
+  let startHour = new Date().getHours();
+  let startMinute = new Date().getMinutes();
+
+  let totalMinutes =
+    startHour*60 + startMinute;
+
+  document.getElementById("timeline").innerHTML =
+    tasks.map(t=>{
+
+      const h =
+        Math.floor(totalMinutes/60)%24;
+
+      const m =
+        totalMinutes%60;
+
+      const time =
+        `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}`;
+
+      totalMinutes += t.minutes;
+
+      return `
+        <div class="timeline-item">
+
+          <div class="timeline-time">${time}</div>
+
+          <div>
+            <strong>${escapeHTML(t.name)}</strong>
+            <div class="small muted">
+              ${t.minutes}分 ${t.done ? "✅" : ""}
+            </div>
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
+
 }
 
 
-document.getElementById("memo")
-  .addEventListener(
-    "input",
-    function(){
+/* =========================================
+   SETTINGS
+========================================= */
 
-      data.memo=this.value;
+function setPersonality(type){
 
-      saveData();
+  data.personality = type;
 
-      document.getElementById(
-        "memoStatus"
-      ).textContent=
-        "✓ 自動保存済み";
+  saveData();
 
+  updatePersonalityButtons();
+  updateClock();
+  render();
+
+}
+
+
+function updatePersonalityButtons(){
+
+  ["gentle","normal","spartan"].forEach(type=>{
+
+    const el =
+      document.getElementById(`personality-${type}`);
+
+    if(el){
+      el.classList.toggle(
+        "active",
+        data.personality===type
+      );
     }
-  );
 
-
-/* =========================
-   DARK
-========================= */
-
-function applyDark(){
-
-  document.body.classList.toggle(
-    "dark",
-    data.dark
-  );
+  });
 
 }
 
 
-function toggleDark(){
+function changeAccent(color){
 
-  data.dark=!data.dark;
+  data.accent = color;
 
-  applyDark();
+  document.documentElement.style
+    .setProperty("--accent",color);
 
   saveData();
 
 }
 
 
-/* =========================
-   EXPORT
-========================= */
+function setTheme(theme){
 
-function exportData(){
+  data.theme = theme;
 
-  const blob=
-    new Blob(
-      [
-        JSON.stringify(
-          data,
-          null,
-          2
-        )
-      ],
-      {
-        type:"application/json"
-      }
-    );
+  applyTheme();
 
-
-  const url=
-    URL.createObjectURL(blob);
-
-
-  const a=
-    document.createElement("a");
-
-
-  a.href=url;
-
-  a.download=
-    "note-plus-backup.json";
-
-
-  a.click();
-
-
-  URL.revokeObjectURL(url);
+  saveData();
 
 }
 
 
-/* =========================
-   IMPORT
-========================= */
+function applyTheme(){
+
+  let theme = data.theme;
+
+  if(theme==="system"){
+
+    theme =
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme:light)").matches
+        ? "light"
+        : "dark";
+
+  }
+
+  if(theme==="light"){
+
+    document.documentElement.style
+      .setProperty("--bg","#eef2f7");
+
+    document.documentElement.style
+      .setProperty("--card","rgba(255,255,255,.84)");
+
+    document.documentElement.style
+      .setProperty("--card2","rgba(0,0,0,.05)");
+
+    document.documentElement.style
+      .setProperty("--text","#111827");
+
+    document.documentElement.style
+      .setProperty("--muted","#64748b");
+
+    document.body.style.backgroundColor =
+      "#eef2f7";
+
+  }else{
+
+    document.documentElement.style
+      .setProperty("--bg","#0b1020");
+
+    document.documentElement.style
+      .setProperty("--card","rgba(20,27,45,.82)");
+
+    document.documentElement.style
+      .setProperty("--card2","rgba(255,255,255,.08)");
+
+    document.documentElement.style
+      .setProperty("--text","#f7f9ff");
+
+    document.documentElement.style
+      .setProperty("--muted","#aab4c8");
+
+    document.body.style.backgroundColor =
+      "#0b1020";
+
+  }
+
+  document.documentElement.style
+    .setProperty("--accent",data.accent);
+
+}
+
+
+function changeWallpaper(event){
+
+  const file =
+    event.target.files[0];
+
+  if(!file) return;
+
+  if(!file.type.startsWith("image/")){
+    showToast("画像ファイルを選んでね");
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    data.wallpaper = e.target.result;
+
+    saveData();
+    applyWallpaper();
+
+    showToast("🖼️ 壁紙を変更した！");
+
+  };
+
+  reader.readAsDataURL(file);
+
+}
+
+
+function applyWallpaper(){
+
+  if(data.wallpaper){
+
+    document.body.style.backgroundImage =
+      `url("${data.wallpaper}")`;
+
+    document.getElementById("wallpaperPreview").style.backgroundImage =
+      `url("${data.wallpaper}")`;
+
+  }else{
+
+    document.body.style.backgroundImage = "";
+
+    document.getElementById("wallpaperPreview").style.backgroundImage =
+      "";
+
+  }
+
+}
+
+
+function removeWallpaper(){
+
+  data.wallpaper = "";
+
+  saveData();
+  applyWallpaper();
+
+}
+
+
+function randomWallpaper(){
+
+  const presets = [
+
+    "linear-gradient(135deg,#111827,#312e81,#0f172a)",
+    "linear-gradient(135deg,#172554,#164e63,#111827)",
+    "linear-gradient(135deg,#3b0764,#1e1b4b,#111827)",
+    "linear-gradient(135deg,#052e16,#064e3b,#111827)",
+    "linear-gradient(135deg,#431407,#7c2d12,#111827)"
+
+  ];
+
+  const value =
+    presets[Math.floor(Math.random()*presets.length)];
+
+  data.wallpaper = "";
+
+  document.body.style.backgroundImage = value;
+
+  document.getElementById("wallpaperPreview").style.backgroundImage =
+    value;
+
+  saveData();
+
+}
+
+
+function saveSettings(){
+
+  data.seconds =
+    document.getElementById("secondsMode").value;
+
+  data.clock24 =
+    document.getElementById("clock24").value;
+
+  saveData();
+  updateClock();
+
+}
+
+
+/* =========================================
+   BACKUP
+========================================= */
+
+function exportData(){
+
+  const blob =
+    new Blob(
+      [JSON.stringify(data,null,2)],
+      {type:"application/json"}
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+  a.download =
+    `NOTEplus_backup_${todayKey()}.json`;
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+  showToast("⬇️ バックアップを作成した！");
+}
+
 
 function importData(event){
 
-  const file=
+  const file =
     event.target.files[0];
 
+  if(!file) return;
 
-  if(!file)return;
-
-
-  const reader=
+  const reader =
     new FileReader();
 
-
-  reader.onload=function(){
+  reader.onload = function(e){
 
     try{
 
-      const imported=
-        JSON.parse(
-          reader.result
+      const imported =
+        JSON.parse(e.target.result);
+
+      data =
+        Object.assign(
+          {},
+          defaultData,
+          imported
         );
-
-
-      data={
-        ...data,
-        ...imported
-      };
-
 
       saveData();
 
-      applyDark();
+      applyTheme();
+      applyWallpaper();
 
+      showToast("⬆️ データを復元した！");
       render();
 
-      toast(
-        "バックアップを読み込んだよ！"
-      );
+    }catch(err){
 
-    }
-    catch{
-
-      toast(
-        "読み込みに失敗しました"
-      );
+      showToast("復元できないファイルです");
 
     }
 
   };
-
 
   reader.readAsText(file);
 
 }
 
 
-/* =========================
-   RESET
-========================= */
+function resetAll(){
 
-function resetData(){
-
-  const ok=
+  const ok =
     confirm(
-      "NOTE＋のデータを全部削除しますか？"
+      "本当に全部消す？\nタスク・XP・統計・設定が削除されます。"
     );
 
+  if(!ok) return;
 
-  if(!ok)return;
+  data =
+    JSON.parse(JSON.stringify(defaultData));
 
+  saveData();
 
-  localStorage.removeItem(
-    STORAGE_KEY
-  );
+  applyTheme();
+  applyWallpaper();
 
+  showToast("すべてリセットしました");
 
-  location.reload();
+  render();
 
 }
 
 
-/* =========================
-   ESCAPE
-========================= */
+/* =========================================
+   HELPERS
+========================================= */
 
-function escapeHTML(value){
+function priorityText(priority){
 
-  return String(value)
+  if(priority===3) return "🔴 最優先";
+  if(priority===2) return "🟠 重要";
+
+  return "🟢 普通";
+
+}
+
+
+function escapeHTML(str){
+
+  return String(str)
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
@@ -2926,15 +2861,66 @@ function escapeHTML(value){
 }
 
 
-/* =========================
-   START
-========================= */
+function showToast(message){
 
-applyDark();
+  const toast =
+    document.getElementById("toast");
 
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer =
+    setTimeout(()=>{
+      toast.classList.remove("show");
+    },2500);
+
+}
+
+
+/* =========================================
+   RENDER
+========================================= */
+
+function render(){
+
+  renderHome();
+  renderTaskLists();
+  renderStats();
+
+  document.getElementById("memoText").value =
+    data.memo || "";
+
+  document.getElementById("accentColor").value =
+    data.accent || "#7c5cff";
+
+  document.getElementById("secondsMode").value =
+    data.seconds || "off";
+
+  document.getElementById("clock24").value =
+    data.clock24 || "on";
+
+  updatePersonalityButtons();
+  applyTheme();
+  applyWallpaper();
+  updateClock();
+  updateTimerDisplay();
+
+}
+
+
+/* =========================================
+   INIT
+========================================= */
+
+applyTheme();
+applyWallpaper();
+updatePersonalityButtons();
 render();
 
-updateTimer();
+setInterval(updateClock,1000);
 
 </script>
 
