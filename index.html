@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#6c63ff">
+<title>NOTE＋</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;
+  background:#f4f5fb;
+  color:#202124;
+}
+header{
+  padding:24px 20px 16px;
+  background:white;
+  position:sticky;
+  top:0;
+  z-index:10;
+  border-bottom:1px solid #eee;
+}
+.logo{font-size:28px;font-weight:800}
+.clock{font-size:14px;color:#777;margin-top:4px}
+main{max-width:760px;margin:auto;padding:20px 16px 100px}
+.card{
+  background:white;
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 4px 20px #00000008;
+}
+h2{margin:0 0 14px}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.stat{
+  padding:14px;
+  background:#f5f5fa;
+  border-radius:15px;
+}
+.stat b{display:block;font-size:22px}
+.progress{
+  height:12px;
+  background:#e8e8ee;
+  border-radius:20px;
+  overflow:hidden;
+  margin:12px 0;
+}
+.progress div{
+  height:100%;
+  width:0%;
+  background:#6c63ff;
+  transition:.3s;
+}
+button{
+  border:0;
+  border-radius:13px;
+  padding:12px 16px;
+  background:#6c63ff;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
+button.secondary{
+  background:#eeeef5;
+  color:#333;
+}
+input,textarea,select{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  font-size:16px;
+  margin:6px 0 10px;
+}
+.task{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 0;
+  border-bottom:1px solid #eee;
+}
+.task:last-child{border-bottom:0}
+.task.done .name{
+  text-decoration:line-through;
+  color:#999;
+}
+.check{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  padding:0;
+  background:#eee;
+  color:#555;
+}
+.task.done .check{
+  background:#6c63ff;
+  color:white;
+}
+.name{flex:1;font-weight:600}
+.small{font-size:12px;color:#888}
+.next{
+  font-size:20px;
+  font-weight:800;
+  margin:10px 0;
+}
+.nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  border-top:1px solid #eee;
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  padding:10px;
+  z-index:20;
+}
+.nav button{
+  background:transparent;
+  color:#666;
+  font-size:12px;
+  padding:8px 10px;
+}
+.nav button.active{color:#6c63ff}
+.page{display:none}
+.page.active{display:block}
+.timer{
+  text-align:center;
+  font-size:64px;
+  font-weight:800;
+  margin:25px 0;
+}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+textarea{min-height:220px;resize:vertical}
+@media(max-width:500px){
+  .stats{grid-template-columns:1fr 1fr}
+  .timer{font-size:52px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">NOTE＋</div>
+  <div id="clock" class="clock"></div>
+</header>
+
+<main>
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+<div class="card">
+  <h2 id="greeting">こんにちは！</h2>
+  <div>今日も少しずつ進めよう。</div>
+</div>
+
+<div class="card">
+  <div class="stats">
+    <div class="stat">
+      <span>LEVEL</span>
+      <b id="level">1</b>
+    </div>
+    <div class="stat">
+      <span>XP</span>
+      <b id="xp">0</b>
+    </div>
+    <div class="stat">
+      <span>STREAK</span>
+      <b id="streak">0</b>
+    </div>
+  </div>
+
+  <div class="small">次のレベルまで</div>
+  <div class="progress">
+    <div id="xpbar"></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>🧠 NOTE＋からの提案</h2>
+  <div id="suggestion">タスクを追加すると、次にやることを提案するよ。</div>
+  <br>
+  <button onclick="goNext()">次にやる</button>
+</div>
+
+<div class="card">
+  <h2>⚡ 今日の進捗</h2>
+  <div id="todayProgress">0%</div>
+  <div class="progress">
+    <div id="todayBar"></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>📋 今日のタスク</h2>
+  <div id="homeTasks"></div>
+</div>
+
+</section>
+
+
+<!-- TASKS -->
+<section id="tasks" class="page">
+
+<div class="card">
+  <h2>📋 タスク</h2>
+
+  <input id="taskInput" placeholder="例：数学ワーク">
+
+  <div class="row">
+    <input id="minutesInput" type="number" placeholder="時間(分)">
+    <select id="priorityInput">
+      <option value="1">低</option>
+      <option value="2" selected>普通</option>
+      <option value="3">高</option>
+    </select>
+  </div>
+
+  <button onclick="addTask()">＋ タスク追加</button>
+</div>
+
+<div class="card">
+  <div id="taskList"></div>
+</div>
+
+</section>
+
+
+<!-- FOCUS -->
+<section id="focus" class="page">
+
+<div class="card">
+  <h2>🎯 集中モード</h2>
+
+  <div id="timer" class="timer">25:00</div>
+
+  <div class="row" style="justify-content:center">
+    <button onclick="setTimer(15)">15分</button>
+    <button onclick="setTimer(25)">25分</button>
+    <button onclick="setTimer(45)">45分</button>
+    <button onclick="setTimer(60)">60分</button>
+  </div>
+
+  <br>
+
+  <div class="row" style="justify-content:center">
+    <button onclick="startTimer()">開始</button>
+    <button class="secondary" onclick="pauseTimer()">停止</button>
+    <button class="secondary" onclick="resetTimer()">リセット</button>
+  </div>
+</div>
+
+</section>
+
+
+<!-- STATS -->
+<section id="stats" class="page">
+
+<div class="card">
+  <h2>📊 成績</h2>
+
+  <div class="stats">
+    <div class="stat">
+      <span>総XP</span>
+      <b id="statXP">0</b>
+    </div>
+
+    <div class="stat">
+      <span>完了数</span>
+      <b id="statDone">0</b>
+    </div>
+
+    <div class="stat">
+      <span>集中時間</span>
+      <b id="statFocus">0分</b>
+    </div>
+  </div>
+</div>
+
+</section>
+
+
+<!-- MEMO -->
+<section id="memo" class="page">
+
+<div class="card">
+  <h2>📝 メモ</h2>
+
+  <textarea id="memo" placeholder="思いついたことを書こう……"></textarea>
+
+  <div class="small">自動保存</div>
+</div>
+
+</section>
+
+
+<!-- SETTINGS -->
+<section id="settings" class="page">
+
+<div class="card">
+  <h2>⚙️ 設定</h2>
+
+  <button onclick="toggleDark()">🌙 ダークモード</button>
+  <br><br>
+  <button class="secondary" onclick="resetData()">データをリセット</button>
+</div>
+
+</section>
+
+</main>
+
+
+<div class="nav">
+  <button onclick="showPage('home',this)" class="active">🏠<br>ホーム</button>
+  <button onclick="showPage('tasks',this)">📋<br>タスク</button>
+  <button onclick="showPage('focus',this)">🎯<br>集中</button>
+  <button onclick="showPage('stats',this)">📊<br>記録</button>
+  <button onclick="showPage('memo',this)">📝<br>メモ</button>
+  <button onclick="showPage('settings',this)">⚙️<br>設定</button>
+</div>
+
+
+<script>
+
+const KEY="note_plus_data";
+
+let data=JSON.parse(localStorage.getItem(KEY))||{
+  tasks:[],
+  xp:0,
+  done:0,
+  streak:0,
+  focus:0,
+  lastDone:null,
+  memo:"",
+  dark:false
+};
+
+let timerSeconds=25*60;
+let timerInterval=null;
+
+function save(){
+  localStorage.setItem(KEY,JSON.stringify(data));
+}
+
+function today(){
+  return new Date().toISOString().slice(0,10);
+}
+
+function updateClock(){
+
+  const d=new Date();
+
+  const date=d.toLocaleDateString("ja-JP",{
+    year:"numeric",
+    month:"long",
+    day:"numeric",
+    weekday:"short"
+  });
+
+  const time=d.toLocaleTimeString("ja-JP",{
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit"
+  });
+
+  document.getElementById("clock").textContent=date+" "+time;
+
+  const h=d.getHours();
+
+  document.getElementById("greeting").textContent=
+    h<5?"まだ夜だね 🌙":
+    h<11?"おはよう！☀️":
+    h<17?"こんにちは！":
+    h<22?"こんばんは！🌙":
+    "そろそろ休もう 🌙";
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+
+function showPage(id,btn){
+
+  document.querySelectorAll(".page")
+    .forEach(p=>p.classList.remove("active"));
+
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll(".nav button")
+    .forEach(b=>b.classList.remove("active"));
+
+  btn.classList.add("active");
+
+  render();
+}
+
+
+function addTask(){
+
+  const name=document.getElementById("taskInput").value.trim();
+
+  if(!name)return;
+
+  const minutes=
+    Number(document.getElementById("minutesInput").value)||25;
+
+  const priority=
+    Number(document.getElementById("priorityInput").value)||2;
+
+  data.tasks.push({
+    id:Date.now(),
+    name,
+    minutes,
+    priority,
+    done:false
+  });
+
+  document.getElementById("taskInput").value="";
+  document.getElementById("minutesInput").value="";
+
+  save();
+  render();
+}
+
+
+function toggleTask(id){
+
+  const task=data.tasks.find(t=>t.id===id);
+
+  if(!task)return;
+
+  task.done=!task.done;
+
+  if(task.done){
+
+    data.xp+=Math.max(10,task.minutes);
+    data.done++;
+
+    const t=today();
+
+    if(data.lastDone!==t){
+
+      if(data.lastDone===
+        new Date(Date.now()-86400000)
+          .toISOString().slice(0,10)){
+
+        data.streak++;
+
+      }else{
+
+        data.streak=1;
+
+      }
+
+      data.lastDone=t;
+    }
+
+  }
+
+  save();
+  render();
+}
+
+
+function deleteTask(id){
+
+  data.tasks=data.tasks.filter(t=>t.id!==id);
+
+  save();
+  render();
+}
+
+
+function getNextTask(){
+
+  const active=data.tasks.filter(t=>!t.done);
+
+  if(!active.length)return null;
+
+  active.sort((a,b)=>{
+
+    const scoreA=a.priority*100-a.minutes;
+    const scoreB=b.priority*100-b.minutes;
+
+    return scoreB-scoreA;
+  });
+
+  return active[0];
+}
+
+
+function goNext(){
+
+  const task=getNextTask();
+
+  if(!task){
+
+    alert("🎉 今やるタスクはないよ！");
+
+    return;
+  }
+
+  showPage(
+    "focus",
+    document.querySelectorAll(".nav button")[2]
+  );
+
+  setTimer(task.minutes);
+
+  alert("次は「"+task.name+"」をやろう！");
+}
+
+
+function setTimer(minutes){
+
+  pauseTimer();
+
+  timerSeconds=minutes*60;
+
+  updateTimer();
+}
+
+
+function updateTimer(){
+
+  const m=Math.floor(timerSeconds/60)
+    .toString().padStart(2,"0");
+
+  const s=(timerSeconds%60)
+    .toString().padStart(2,"0");
+
+  document.getElementById("timer").textContent=
+    m+":"+s;
+}
+
+
+function startTimer(){
+
+  if(timerInterval)return;
+
+  timerInterval=setInterval(()=>{
+
+    timerSeconds--;
+
+    updateTimer();
+
+    if(timerSeconds<=0){
+
+      pauseTimer();
+
+      data.focus+=25;
+      data.xp+=25;
+
+      save();
+      render();
+
+      alert("🎉 集中タイム終了！");
+    }
+
+  },1000);
+}
+
+
+function pauseTimer(){
+
+  clearInterval(timerInterval);
+  timerInterval=null;
+}
+
+
+function resetTimer(){
+
+  pauseTimer();
+
+  timerSeconds=25*60;
+
+  updateTimer();
+}
+
+
+function renderTasks(){
+
+  const list=document.getElementById("taskList");
+  const home=document.getElementById("homeTasks");
+
+  const html=data.tasks.map(t=>`
+
+    <div class="task ${t.done?"done":""}">
+
+      <button class="check"
+        onclick="toggleTask(${t.id})">
+        ${t.done?"✓":""}
+      </button>
+
+      <div class="name">
+        ${escapeHTML(t.name)}
+        <div class="small">
+          ${t.minutes}分
+          ${
+            t.priority===3
+            ?" ・ 🔥高"
+            :t.priority===2
+            ?" ・ 普通"
+            :" ・ 低"
+          }
+        </div>
+      </div>
+
+      <button class="secondary"
+        onclick="deleteTask(${t.id})">
+        ×
+      </button>
+
+    </div>
+  `).join("");
+
+  list.innerHTML=html||"まだタスクがないよ。";
+
+  const todayTasks=data.tasks;
+
+  home.innerHTML=
+    todayTasks.slice(0,5).map(t=>`
+
+      <div class="task ${t.done?"done":""}">
+
+        <button class="check"
+          onclick="toggleTask(${t.id})">
+          ${t.done?"✓":""}
+        </button>
+
+        <div class="name">
+          ${escapeHTML(t.name)}
+          <div class="small">${t.minutes}分</div>
+        </div>
+
+      </div>
+
+    `).join("")||
+    "タスクを追加してみよう！";
+}
+
+
+function render(){
+
+  const level=Math.floor(data.xp/500)+1;
+
+  const currentXP=data.xp%500;
+
+  document.getElementById("level").textContent=level;
+  document.getElementById("xp").textContent=data.xp;
+  document.getElementById("streak").textContent=data.streak;
+
+  document.getElementById("xpbar").style.width=
+    (currentXP/500*100)+"%";
+
+  const total=data.tasks.length;
+
+  const done=data.tasks.filter(t=>t.done).length;
+
+  const percent=
+    total?Math.round(done/total*100):0;
+
+  document.getElementById("todayProgress")
+    .textContent=percent+"%";
+
+  document.getElementById("todayBar")
+    .style.width=percent+"%";
+
+  const next=getNextTask();
+
+  document.getElementById("suggestion").textContent=
+    next
+    ?"今は「"+next.name+"」がおすすめ。"
+    :"🎉 やることは全部終わった！";
+
+  document.getElementById("statXP").textContent=data.xp;
+  document.getElementById("statDone").textContent=data.done;
+  document.getElementById("statFocus").textContent=data.focus+"分";
+
+  document.getElementById("memo").value=data.memo;
+
+  renderTasks();
+}
+
+
+document.getElementById("memo")
+.addEventListener("input",e=>{
+
+  data.memo=e.target.value;
+
+  save();
+});
+
+
+function toggleDark(){
+
+  data.dark=!data.dark;
+
+  document.body.style.background=
+    data.dark?"#111":"#f4f5fb";
+
+  document.body.style.color=
+    data.dark?"#eee":"#202124";
+
+  save();
+}
+
+
+function resetData(){
+
+  if(!confirm("本当に全部消す？"))return;
+
+  localStorage.removeItem(KEY);
+
+  location.reload();
+}
+
+
+function escapeHTML(str){
+
+  return String(str)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+render();
+
+</script>
+
+</body>
+</html>
